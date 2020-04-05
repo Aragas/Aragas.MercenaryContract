@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+  <strings>
+    <string id="str_mercenary_contract_expired" text="{=SiDfGUbZ}Mercenary Contract Expired" />
+    <string id="str_mercenary_contract_expired_desc" text="{=rheG5rjL}Your mercenary contract has expired. You may choose to renew the contract for an additional 30 days or end the contract." />
+
+    <string id="str_mercenary_contract_encyclopedia" text="{=aYhTvUaf}Mercenary Contract of {HERO.LINK} with {FACTION} has expired." />
+
+    <string id="str_mercenary_contract_renewed" text="{=YiJhGKbZ}You have renewed your mercenary contract." />
+    <string id="str_mercenary_contract_ended" text="{=FiGfHGbR}You have ended your mercenary contract." />
+
+    <string id="str_mercenary_contract_encyclopedia_renewed" text="{=EiGtJGbR}Mercenary Contract of {HERO.LINK} with {FACTION} was renewed." />
+    <string id="str_mercenary_contract_encyclopedia_ended" text="{=AiRfHGbRH}Mercenary Contract of {HERO.LINK} with {FACTION} was ended." />
+  </strings>
+</base>
