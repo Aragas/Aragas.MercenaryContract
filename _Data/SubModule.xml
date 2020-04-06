@@ -1,14 +1,16 @@
 ﻿<Module>
   <Name value="Limited Mercenary Contract" />
   <Id value="Aragas.MercenaryContract" />
-  <Version value="e1.0.5" />
+  <Version value="v1.0.6" />
   <SingleplayerModule value="true" />
   <MultiplayerModule value="false" />
+  <Official value="false" />
   <DependedModules>
     <DependedModule Id="Native" />
     <DependedModule Id="SandBoxCore" />
     <DependedModule Id="Sandbox" />
     <DependedModule Id="StoryMode" />
+    <DependedModule Id="CustomBattle"/>
   </DependedModules>
   <SubModules>
     <SubModule>

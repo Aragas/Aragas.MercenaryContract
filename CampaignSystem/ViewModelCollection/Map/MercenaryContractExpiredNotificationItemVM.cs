@@ -2,8 +2,10 @@
 using Aragas.Core;
 
 using System;
+using System.Reflection;
 
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.ViewModelCollection.Map;
 using TaleWorlds.Core;
 
@@ -11,6 +13,13 @@ namespace Aragas.CampaignSystem.ViewModelCollection.Map
 {
 	public class MercenaryContractExpiredNotificationItemVM : MapNotificationItemBaseVM
 	{
+		private static readonly MethodInfo OnMercenaryClanChangedKingdomMethod =
+			typeof(CampaignEventReceiver).GetMethod("OnMercenaryClanChangedKingdom", BindingFlags.NonPublic | BindingFlags.Instance);
+
+		private static readonly MethodInfo CheckIfPartyIconIsDirtyMethod =
+			typeof(ChangeKingdomAction).GetMethod("CheckIfPartyIconIsDirty", BindingFlags.NonPublic | BindingFlags.Static);
+
+
 		private MercenaryContractMapNotification MercenaryContractMapNotification { get; }
 
 		public MercenaryContractExpiredNotificationItemVM(
@@ -53,7 +62,22 @@ namespace Aragas.CampaignSystem.ViewModelCollection.Map
 		}
 		private void EndContract()
 		{
-			Clan.PlayerClan.ClanLeaveKingdom(true);
+			var mercenaryClan = MercenaryContractMapNotification.Mercenary.Clan;
+			var mercenaryKingdom = MercenaryContractMapNotification.Mercenary.Clan.Kingdom;
+
+			mercenaryClan.ClanLeaveKingdom(false);
+
+			OnMercenaryClanChangedKingdomMethod.Invoke(CampaignEventDispatcher.Instance, new object[] { mercenaryClan, mercenaryKingdom, null });
+			//CampaignEventDispatcher.Instance.OnMercenaryClanChangedKingdom(clan, kingdom2, null);
+			mercenaryClan.IsUnderMercenaryService = false;
+
+			if (mercenaryClan == Clan.PlayerClan)
+			{
+				Campaign.Current.UpdateDecisions();
+			}
+			CheckIfPartyIconIsDirtyMethod.Invoke(null, new object[] { mercenaryClan, mercenaryKingdom });
+			//ChangeKingdomAction.CheckIfPartyIconIsDirty(clan, kingdom2);
+
 			InformationManager.DisplayMessage(new InformationMessage(GameTexts.FindText("str_mercenary_contract_ended", null).ToString()));
 			MercenaryContractMapNotification.IsHandled = true;
 			LogEntry.AddLogEntry(new MercenaryContractEndedLogEntry(MercenaryContractMapNotification.Mercenary));

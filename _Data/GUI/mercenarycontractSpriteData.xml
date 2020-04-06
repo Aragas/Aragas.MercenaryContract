@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SpriteData>
+  <SpriteCategories>
+    <SpriteCategory>
+      <Name>append_ui_group1</Name>
+      <SpriteSheetCount>1</SpriteSheetCount>
+      <SpriteSheetSize ID="1" Width="512" Height="512" />
+    </SpriteCategory>
+  </SpriteCategories>
+  <SpriteParts>
+    <SpritePart>
+      <SheetID>1</SheetID>
+      <Name>MapNotification\CircleImages\notification_illustration_mercenarycontractexpired</Name>
+      <Width>75</Width>
+      <Height>75</Height>
+      <SheetX>0</SheetX>
+      <SheetY>0</SheetY>
+      <CategoryName>append_ui_group1</CategoryName>
+    </SpritePart>
+  </SpriteParts>
+  <Sprites>
+    <GenericSprite>
+      <Name>MapNotification\CircleImages\notification_illustration_mercenarycontractexpired</Name>
+      <SpritePartName>MapNotification\CircleImages\notification_illustration_mercenarycontractexpired</SpritePartName>
+    </GenericSprite>
+  </Sprites>
+</SpriteData>

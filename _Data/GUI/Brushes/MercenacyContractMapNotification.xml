@@ -1,0 +1,12 @@
+﻿<Brushes>
+    <Brush Name="Aragas.MercenaryContract.Map.Notification.Type.Circle.Image">
+        <Layers>
+            <BrushLayer Name="mercenarycontractexpired" Sprite="MapNotification\CircleImages\notification_illustration_mercenarycontractexpired" IsHidden="true" />
+        </Layers>
+        <Styles>
+            <Style Name="mercenarycontractexpired">
+                <BrushLayer Name="mercenarycontractexpired" IsHidden="false" />
+            </Style>
+        </Styles>
+    </Brush>
+</Brushes>
