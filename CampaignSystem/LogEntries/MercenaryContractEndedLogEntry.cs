@@ -19,10 +19,10 @@ namespace Aragas.CampaignSystem.LogEntries
 
 		public override CampaignTime KeepInHistoryTime => CampaignTime.Weeks(40f);
 
-		public MercenaryContractEndedLogEntry(Hero mercenary)
+		public MercenaryContractEndedLogEntry(Hero mercenary, IFaction hiringFaction)
 		{
 			_mercenary = mercenary.CharacterObject;
-			_hiringFaction = mercenary.MapFaction;
+			_hiringFaction = hiringFaction;
 
 			if (mercenary.MapFaction == MobileParty.MainParty.MapFaction)
 			{
@@ -42,7 +42,7 @@ namespace Aragas.CampaignSystem.LogEntries
 			if (_mercenary == null)
 				return TextObject.Empty;
 
-			var textObject = GameTexts.FindText("str_mercenary_contract_encyclopedia", null);
+			var textObject = GameTexts.FindText("str_mercenary_contract_encyclopedia_ended", null);
 			StringHelpers.SetCharacterProperties(
 				"HERO",
 				_mercenary,

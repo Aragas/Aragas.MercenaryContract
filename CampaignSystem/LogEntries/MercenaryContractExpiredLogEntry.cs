@@ -12,10 +12,10 @@ namespace Aragas.CampaignSystem.LogEntries
 	public class MercenaryContractExpiredLogEntry : LogEntry, IEncyclopediaLog
 	{
 		[SaveableField(1)]
-		private readonly CharacterObject _mercenary;
+		private CharacterObject _mercenary;
 
 		[SaveableField(2)]
-		private readonly IFaction _hiringFaction;
+		private IFaction _hiringFaction;
 
 		public override CampaignTime KeepInHistoryTime => CampaignTime.Weeks(1f);
 
@@ -41,6 +41,10 @@ namespace Aragas.CampaignSystem.LogEntries
 		{
 			if (_mercenary == null)
 				return TextObject.Empty;
+
+			// Since our e1.0.5 did not include _hiringFaction, workaround.
+			if (_hiringFaction == null)
+				_hiringFaction = _mercenary.HeroObject.MapFaction;
 
 			var textObject = GameTexts.FindText("str_mercenary_contract_encyclopedia", null);
 			StringHelpers.SetCharacterProperties(

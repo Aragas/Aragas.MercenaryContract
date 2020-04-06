@@ -55,15 +55,20 @@ namespace Aragas.CampaignSystem.ViewModelCollection.Map
 		}
 		private void RenewContract()
 		{
-			Clan.PlayerClan.LastFactionChangeTime = CampaignTime.Now;
-			InformationManager.DisplayMessage(new InformationMessage(GameTexts.FindText("str_mercenary_contract_renewed", null).ToString()));
+			MercenaryContractMapNotification.Mercenary.Clan.LastFactionChangeTime = CampaignTime.Now;
+
+			if (MercenaryContractMapNotification.Mercenary.IsHumanPlayerCharacter)
+				InformationManager.DisplayMessage(new InformationMessage(GameTexts.FindText("str_mercenary_contract_renewed", null).ToString()));
 			MercenaryContractMapNotification.IsHandled = true;
-			LogEntry.AddLogEntry(new MercenaryContractRenewedLogEntry(MercenaryContractMapNotification.Mercenary));
+
+			LogEntry.AddLogEntry(new MercenaryContractRenewedLogEntry(MercenaryContractMapNotification.Mercenary, MercenaryContractMapNotification.Mercenary.MapFaction));
 		}
 		private void EndContract()
 		{
-			var mercenaryClan = MercenaryContractMapNotification.Mercenary.Clan;
-			var mercenaryKingdom = MercenaryContractMapNotification.Mercenary.Clan.Kingdom;
+			var mercenary = MercenaryContractMapNotification.Mercenary;
+			var mercenaryClan = mercenary.Clan;
+			var mercenaryKingdom = mercenaryClan.Kingdom;
+			var mercenaryFaction = mercenary.MapFaction;
 
 			mercenaryClan.ClanLeaveKingdom(false);
 
@@ -71,16 +76,18 @@ namespace Aragas.CampaignSystem.ViewModelCollection.Map
 			//CampaignEventDispatcher.Instance.OnMercenaryClanChangedKingdom(clan, kingdom2, null);
 			mercenaryClan.IsUnderMercenaryService = false;
 
-			if (mercenaryClan == Clan.PlayerClan)
-			{
+			if (mercenary.IsHumanPlayerCharacter)
 				Campaign.Current.UpdateDecisions();
-			}
+
 			CheckIfPartyIconIsDirtyMethod.Invoke(null, new object[] { mercenaryClan, mercenaryKingdom });
 			//ChangeKingdomAction.CheckIfPartyIconIsDirty(clan, kingdom2);
 
-			InformationManager.DisplayMessage(new InformationMessage(GameTexts.FindText("str_mercenary_contract_ended", null).ToString()));
+			if (mercenary.IsHumanPlayerCharacter)
+				InformationManager.DisplayMessage(new InformationMessage(GameTexts.FindText("str_mercenary_contract_ended", null).ToString()));
+			
 			MercenaryContractMapNotification.IsHandled = true;
-			LogEntry.AddLogEntry(new MercenaryContractEndedLogEntry(MercenaryContractMapNotification.Mercenary));
+
+			LogEntry.AddLogEntry(new MercenaryContractEndedLogEntry(mercenary, mercenaryFaction));
 		}
 
 		public override void ManualRefreshRelevantStatus()
@@ -89,9 +96,10 @@ namespace Aragas.CampaignSystem.ViewModelCollection.Map
 
 			// Auto renew contract if no decivion was made ater one day
 			// This may happen in siege I guess
-			if (Clan.PlayerClan.IsUnderMercenaryService && Clan.PlayerClan.LastFactionChangeTime.ElapsedDaysUntilNow - MercenaryContractMapNotification.CreatedDay >= 1f)
+			if (MercenaryContractMapNotification.Mercenary.Clan.IsUnderMercenaryService &&
+				MercenaryContractMapNotification.Mercenary.Clan.LastFactionChangeTime.ElapsedDaysUntilNow - MercenaryContractMapNotification.CreatedDay >= 1f)
 			{
-				Clan.PlayerClan.LastFactionChangeTime = CampaignTime.Now;
+				MercenaryContractMapNotification.Mercenary.Clan.LastFactionChangeTime = CampaignTime.Now;
 				MercenaryContractMapNotification.IsHandled = true;
 
 				ExecuteRemove();

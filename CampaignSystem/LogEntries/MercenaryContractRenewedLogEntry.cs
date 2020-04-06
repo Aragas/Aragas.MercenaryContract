@@ -17,10 +17,10 @@ namespace Aragas.CampaignSystem.LogEntries
 
 		public override CampaignTime KeepInHistoryTime => CampaignTime.Weeks(40f);
 
-		public MercenaryContractRenewedLogEntry(Hero mercenary)
+		public MercenaryContractRenewedLogEntry(Hero mercenary, IFaction hiringFaction)
 		{
 			_mercenary = mercenary.CharacterObject;
-			_hiringFaction = mercenary.MapFaction;
+			_hiringFaction = hiringFaction;
 		}
 
 		public bool IsVisibleInEncyclopediaPageOf<T>(T obj) where T : MBObjectBase => obj == _mercenary.HeroObject;
