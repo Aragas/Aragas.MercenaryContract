@@ -1,7 +1,7 @@
 ﻿<Module>
   <Name value="Limited Mercenary Contract" />
   <Id value="Aragas.MercenaryContract" />
-  <Version value="v1.0.6" />
+  <Version value="v1.0.7" />
   <SingleplayerModule value="true" />
   <MultiplayerModule value="false" />
   <Official value="false" />

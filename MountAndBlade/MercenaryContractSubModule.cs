@@ -41,10 +41,14 @@ namespace Aragas.MountAndBlade
 
 		protected override void OnGameStart(Game game, IGameStarter gameStarter)
 		{
-			if (game.GameType is Campaign && gameStarter is CampaignGameStarter campaignGameStarter)
+			if (game.GameType is Campaign campaign && gameStarter is CampaignGameStarter campaignGameStarter)
 			{
 				campaignGameStarter.LoadGameTexts($"{BasePath.Name}Modules/Aragas.MercenaryContract/ModuleData/global_strings.xml");
 				campaignGameStarter.AddBehavior(new MercenaryContractBehavior());
+
+				// Keep this fix for a few versions
+				if (Clan.PlayerClan.IsUnderMercenaryService && Clan.PlayerClan.Kingdom == null)
+					Clan.PlayerClan.IsUnderMercenaryService = false;
 			}
 		}
 	}
