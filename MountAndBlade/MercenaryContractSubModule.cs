@@ -46,9 +46,16 @@ namespace Aragas.MountAndBlade
 				campaignGameStarter.LoadGameTexts($"{BasePath.Name}Modules/Aragas.MercenaryContract/ModuleData/global_strings.xml");
 				campaignGameStarter.AddBehavior(new MercenaryContractBehavior());
 
-				// Keep this fix for a few versions
-				if (Clan.PlayerClan.IsUnderMercenaryService && Clan.PlayerClan.Kingdom == null)
-					Clan.PlayerClan.IsUnderMercenaryService = false;
+				// When creating new Campaign the value is null
+				if (Clan.PlayerClan != null)
+				{
+					// Keep this fix for a few versions
+					if (Clan.PlayerClan.IsUnderMercenaryService && Clan.PlayerClan.Kingdom == null)
+					{
+						Clan.PlayerClan.IsUnderMercenaryService = false;
+						campaign.UpdateDecisions();
+					}
+				}
 			}
 		}
 	}

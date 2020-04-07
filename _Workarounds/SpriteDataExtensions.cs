@@ -5,7 +5,7 @@ using TaleWorlds.TwoDimension;
 
 namespace Aragas
 {
-    public static class SpriteDataExtensions
+	public static class SpriteDataExtensions
 	{
 		private static PropertyInfo NameProperty { get; } = typeof(SpriteCategory)
 			.GetProperty("Name", BindingFlags.Instance | BindingFlags.Public);

@@ -8,9 +8,14 @@ namespace Aragas
 		public static SpriteData CreateNewFromModule(string name, ResourceDepot resourceDepot)
 		{
 			var spriteData = new SpriteData(name);
-			spriteData.Load(resourceDepot);
-			foreach (var spriteCategory in spriteData.SpriteCategories)
-				spriteCategory.Value.LoadFromModules(resourceDepot);
+			try
+			{
+				spriteData.Load(resourceDepot);
+				foreach (var spriteCategory in spriteData.SpriteCategories)
+					spriteCategory.Value.LoadFromModules(resourceDepot);
+			}
+			catch { }
+
 			return spriteData;
 		}
 	}

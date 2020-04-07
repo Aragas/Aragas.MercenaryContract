@@ -4,13 +4,13 @@ using TaleWorlds.GauntletUI;
 
 namespace Aragas
 {
-    public static class BrushExtensions
+	public static class BrushExtensions
 	{
 		public static void AppendFrom(this Brush brush, Brush appendBrush)
 		{
 			foreach (var layer in appendBrush.Layers)
 			{
-				if(!brush.Layers.Any(l => l.Name == layer.Name))
+				if (!brush.Layers.Any(l => l.Name == layer.Name))
 					brush.AddLayer(layer);
 			}
 			foreach (var style in appendBrush.Styles)

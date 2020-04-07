@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 
 using TaleWorlds.Engine.GauntletUI;
@@ -18,12 +19,19 @@ namespace Aragas
 
 				for (var i = 1; i <= spriteCategory.SpriteSheetCount; i++)
 				{
-					var filePath = resourceDepot.GetFilePath($"SpriteSheets\\{spriteCategory.Name}\\{spriteCategory.Name}_{i}.png");
-					var fileInfo = new FileInfo(filePath);
-					spriteCategory.SpriteSheets.Add(
-						new Texture(
-							new EngineTexture(
-								TaleWorlds.Engine.Texture.CreateTextureFromPath(fileInfo.Directory.FullName, fileInfo.Name))));
+					try
+					{
+						var filePath = resourceDepot.GetFilePath($"SpriteSheets\\{spriteCategory.Name}\\{spriteCategory.Name}_{i}.png");
+						var fileInfo = new FileInfo(filePath);
+						spriteCategory.SpriteSheets.Add(
+							new Texture(
+								new EngineTexture(
+									TaleWorlds.Engine.Texture.CreateTextureFromPath(fileInfo.Directory.FullName, fileInfo.Name))));
+					}
+					catch (Exception e)
+					{
+						;
+					}
 				}
 			}
 		}

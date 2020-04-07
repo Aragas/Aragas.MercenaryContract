@@ -11,6 +11,15 @@ using TaleWorlds.Core;
 
 namespace Aragas.CampaignSystem.ViewModelCollection.Map
 {
+	// Character icon on Map:
+	// ButtonWidget with child ImageIdentifierWidget
+	// ImageId = CharacterId data
+	// ImageTypeCode = 5
+	// AdditionalArgs = ""
+	// Texture - character_tableaue0
+	// TextureProvider TaleWorlds.MountAndBlade.GauntletUI.ImageIdentifierTextureProvider
+
+
 	public class MercenaryContractExpiredNotificationItemVM : MapNotificationItemBaseVM
 	{
 		private static readonly MethodInfo OnMercenaryClanChangedKingdomMethod =
@@ -70,6 +79,13 @@ namespace Aragas.CampaignSystem.ViewModelCollection.Map
 			var mercenaryKingdom = mercenaryClan.Kingdom;
 			var mercenaryFaction = mercenary.MapFaction;
 
+			StatisticsDataLogHelper.AddLog(StatisticsDataLogHelper.LogAction.ChangeKingdomAction, new object[]
+			{
+					mercenaryClan,
+					mercenaryKingdom,
+					(Kingdom) null,
+					true
+			});
 			mercenaryClan.ClanLeaveKingdom(false);
 
 			OnMercenaryClanChangedKingdomMethod.Invoke(CampaignEventDispatcher.Instance, new object[] { mercenaryClan, mercenaryKingdom, null });

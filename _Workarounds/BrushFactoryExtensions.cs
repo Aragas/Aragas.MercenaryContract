@@ -2,7 +2,7 @@
 
 namespace Aragas
 {
-    public static class BrushFactoryExtensions
+	public static class BrushFactoryExtensions
 	{
 		public static void ImportAndAppend(this BrushFactory brushFactory, string brushName, string brushFile, string appendBrushName)
 		{
