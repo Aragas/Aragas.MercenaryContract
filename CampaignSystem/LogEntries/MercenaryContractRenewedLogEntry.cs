@@ -9,10 +9,10 @@ namespace Aragas.CampaignSystem.LogEntries
 {
 	public class MercenaryContractRenewedLogEntry : LogEntry, IEncyclopediaLog
 	{
-		[SaveableField(1)]
+		[SaveableField(5)]
 		private readonly CharacterObject _mercenary;
 
-		[SaveableField(2)]
+		[SaveableField(6)]
 		private readonly IFaction _hiringFaction;
 
 		public override CampaignTime KeepInHistoryTime => CampaignTime.Weeks(40f);
@@ -23,11 +23,11 @@ namespace Aragas.CampaignSystem.LogEntries
 			_hiringFaction = hiringFaction;
 		}
 
-		public bool IsVisibleInEncyclopediaPageOf<T>(T obj) where T : MBObjectBase => obj == _mercenary.HeroObject;
+		public bool IsVisibleInEncyclopediaPageOf<T>(T obj) where T : MBObjectBase => obj == _mercenary?.HeroObject;
 
 		public TextObject GetEncyclopediaText()
 		{
-			if (_mercenary == null)
+			if (_mercenary == null || _hiringFaction == null)
 				return TextObject.Empty;
 
 			var textObject = GameTexts.FindText("str_mercenary_contract_encyclopedia_renewed", null);

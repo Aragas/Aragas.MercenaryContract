@@ -1,4 +1,8 @@
 ﻿using Aragas.CampaignSystem;
+using Aragas.CampaignSystem.CampaignBehaviors;
+using Aragas.TextureImporting;
+
+using CommunityPatch;
 
 using HarmonyLib;
 
@@ -12,17 +16,34 @@ using TaleWorlds.MountAndBlade;
 
 namespace Aragas.MountAndBlade
 {
+	// TODO: * Reduce/remove? the relationship loss when attacking an enemy of the Kingdom (MelissaSanctum)
+	// TODO: * Introduce 'rewards' for various war actions, like joining armies and capturing towns/castles(filipegroh)
+	// TODO: * If you attack groups larger than you, the same thing with the [Daring] trait.
+	// TODO: * If you let leaders of the parties you defeat go, same thing with the [Merciful] trait.
+	// TODO: * Helping out other parties in battles, positive rep with people with the [Generous] trait.
+
 	public class MercenaryContractSubModule : MBSubModuleBase
-	{
+    {
+        public static MercenaryContractSubModule Current { get; private set; } = default!;
+
+		public MercenaryManager MercenaryManager { get; }
+		public MercenaryContractOptions Options { get; }
+		public MercenaryContractCampaignEvents CampaignEvents { get; }
+
 		public MercenaryContractSubModule()
-		{
+        {
+            Current = this;
+            MercenaryManager = new MercenaryManager();
+			Options = new MercenaryContractOptions();
+            CampaignEvents = new MercenaryContractCampaignEvents();
+
 			try
 			{
 				new Harmony("org.aragas.bannerlord.mercenarycontract").PatchAll(typeof(MercenaryContractSubModule).Assembly);
 			}
 			catch (Exception ex)
 			{
-				// TODO: Find a logger
+                CommunityPatchSubModule.Error(ex, "[Aragas.MercenaryContract]: Error while trying to initialize Harmony!");
 			}
 		}
 
@@ -44,6 +65,7 @@ namespace Aragas.MountAndBlade
 			if (game.GameType is Campaign campaign && gameStarter is CampaignGameStarter campaignGameStarter)
 			{
 				campaignGameStarter.LoadGameTexts($"{BasePath.Name}Modules/Aragas.MercenaryContract/ModuleData/global_strings.xml");
+				campaignGameStarter.AddBehavior(new BattleHistoryBehavior());
 				campaignGameStarter.AddBehavior(new MercenaryContractBehavior());
 
 				// When creating new Campaign the value is null
@@ -58,5 +80,5 @@ namespace Aragas.MountAndBlade
 				}
 			}
 		}
-	}
+    }
 }

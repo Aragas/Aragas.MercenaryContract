@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-
+using CommunityPatch;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Library;
 using TaleWorlds.TwoDimension;
 
-namespace Aragas
+namespace Aragas.TextureImporting
 {
 	public static class SpriteCategoryExtensions
 	{
@@ -28,9 +28,9 @@ namespace Aragas
 								new EngineTexture(
 									TaleWorlds.Engine.Texture.CreateTextureFromPath(fileInfo.Directory.FullName, fileInfo.Name))));
 					}
-					catch (Exception e)
+					catch (Exception ex)
 					{
-						;
+                        CommunityPatchSubModule.Error(ex, "[Aragas.MercenaryContract]: Error while trying to load custom textures!");
 					}
 				}
 			}

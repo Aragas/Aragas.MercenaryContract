@@ -3,7 +3,7 @@ using System.Reflection;
 
 using TaleWorlds.TwoDimension;
 
-namespace Aragas
+namespace Aragas.TextureImporting
 {
 	public static class SpriteDataExtensions
 	{
@@ -20,7 +20,7 @@ namespace Aragas
 		{
 			foreach (var name in appendSpriteData.SpriteNames)
 			{
-				if (!spriteData.SpriteNames.Any(s => s.Key == name.Key))
+				if (spriteData.SpriteNames.All(s => s.Key != name.Key))
 					spriteData.SpriteNames.Add(name.Key, name.Value);
 			}
 			foreach (var category in appendSpriteData.SpriteCategories)
@@ -50,26 +50,26 @@ namespace Aragas
 
 				NameProperty.SetValue(part.Value.Category, part.Value.Category.Name.Replace("append_", ""));
 
-				if (!spriteData.SpritePartNames.Any(s => s.Key == part.Key))
+				if (spriteData.SpritePartNames.All(s => s.Key != part.Key))
 					spriteData.SpritePartNames.Add(part.Key, part.Value);
 			}
 		}
 
-		public static void ImportFrom(this SpriteData spriteData, SpriteData imporSpriteData)
+		public static void ImportFrom(this SpriteData spriteData, SpriteData importSpriteData)
 		{
-			foreach (var name in imporSpriteData.SpriteNames)
+			foreach (var name in importSpriteData.SpriteNames)
 			{
-				if (!spriteData.SpriteNames.Any(s => s.Key == name.Key))
+				if (spriteData.SpriteNames.All(s => s.Key != name.Key))
 					spriteData.SpriteNames.Add(name.Key, name.Value);
 			}
-			foreach (var part in imporSpriteData.SpritePartNames)
+			foreach (var part in importSpriteData.SpritePartNames)
 			{
-				if (!spriteData.SpritePartNames.Any(s => s.Key == part.Key))
+				if (spriteData.SpritePartNames.All(s => s.Key != part.Key))
 					spriteData.SpritePartNames.Add(part.Key, part.Value);
 			}
-			foreach (var category in imporSpriteData.SpriteCategories)
+			foreach (var category in importSpriteData.SpriteCategories)
 			{
-				if (!spriteData.SpriteCategories.Any(s => s.Key == category.Key))
+				if (spriteData.SpriteCategories.All(s => s.Key != category.Key))
 					spriteData.SpriteCategories.Add(category.Key, category.Value);
 			}
 		}

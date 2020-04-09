@@ -2,7 +2,7 @@
 
 using TaleWorlds.GauntletUI;
 
-namespace Aragas
+namespace Aragas.TextureImporting
 {
 	public static class BrushExtensions
 	{
@@ -10,17 +10,17 @@ namespace Aragas
 		{
 			foreach (var layer in appendBrush.Layers)
 			{
-				if (!brush.Layers.Any(l => l.Name == layer.Name))
+				if (brush.Layers.All(l => l.Name != layer.Name))
 					brush.AddLayer(layer);
 			}
 			foreach (var style in appendBrush.Styles)
 			{
-				if (!brush.Styles.Any(s => s.Name == style.Name))
+				if (brush.Styles.All(s => s.Name != style.Name))
 					brush.AddStyle(style);
 			}
 			foreach (var animation in appendBrush.GetAnimations())
 			{
-				if (!brush.GetAnimations().Any(a => a.Name == animation.Name))
+				if (brush.GetAnimations().All(a => a.Name != animation.Name))
 					brush.AddAnimation(animation);
 			}
 		}

@@ -1,6 +1,6 @@
 ﻿using TaleWorlds.GauntletUI;
 
-namespace Aragas
+namespace Aragas.TextureImporting
 {
 	public static class BrushFactoryExtensions
 	{

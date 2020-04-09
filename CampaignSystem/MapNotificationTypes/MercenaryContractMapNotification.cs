@@ -3,18 +3,17 @@ using TaleWorlds.Core;
 using TaleWorlds.Localization;
 using TaleWorlds.SaveSystem;
 
-namespace Aragas.Core
+namespace Aragas.CampaignSystem.MapNotificationTypes
 {
 	public class MercenaryContractMapNotification : InformationData
-	{
-		[SaveableProperty(1)]
-		public Hero Mercenary { get; set; }
+    {
+        [SaveableProperty(6)]
+        public Hero Mercenary { get; set; }
 
-		[SaveableProperty(2)]
+		[SaveableProperty(7)]
 		public bool IsHandled { get; set; }
 
-		[SaveableProperty(3)]
-		public float CreatedDay { get; set; }
+        public CampaignTime CreationTime => ((LogEntry)InformationDataHolder).GameTime;
 
 		public MercenaryContractMapNotification(
 			Hero mercenary,
@@ -26,7 +25,6 @@ namespace Aragas.Core
 			: base(titleText, descriptionText, forceInspection, logEntry, soundEventPath)
 		{
 			Mercenary = mercenary;
-			CreatedDay = Clan.PlayerClan.LastFactionChangeTime.ElapsedDaysUntilNow;
-		}
+        }
 	}
 }
