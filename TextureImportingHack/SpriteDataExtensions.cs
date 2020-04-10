@@ -3,7 +3,7 @@ using System.Reflection;
 
 using TaleWorlds.TwoDimension;
 
-namespace Aragas.TextureImporting
+namespace Aragas.TextureImportingHack
 {
 	public static class SpriteDataExtensions
 	{

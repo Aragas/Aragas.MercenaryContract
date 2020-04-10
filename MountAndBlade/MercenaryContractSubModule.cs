@@ -1,6 +1,6 @@
 ﻿using Aragas.CampaignSystem;
 using Aragas.CampaignSystem.CampaignBehaviors;
-using Aragas.TextureImporting;
+using Aragas.TextureImportingHack;
 
 using CommunityPatch;
 
@@ -16,13 +16,9 @@ using TaleWorlds.MountAndBlade;
 
 namespace Aragas.MountAndBlade
 {
-	// TODO: * Reduce/remove? the relationship loss when attacking an enemy of the Kingdom (MelissaSanctum)
-	// TODO: * Introduce 'rewards' for various war actions, like joining armies and capturing towns/castles(filipegroh)
-	// TODO: * If you attack groups larger than you, the same thing with the [Daring] trait.
-	// TODO: * If you let leaders of the parties you defeat go, same thing with the [Merciful] trait.
-	// TODO: * Helping out other parties in battles, positive rep with people with the [Generous] trait.
+    // TODO: * Introduce 'rewards' for various war actions, like joining armies and capturing towns/castles(filipegroh)
 
-	public class MercenaryContractSubModule : MBSubModuleBase
+    public class MercenaryContractSubModule : MBSubModuleBase
     {
         public static MercenaryContractSubModule Current { get; private set; } = default!;
 

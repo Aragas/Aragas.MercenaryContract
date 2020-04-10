@@ -5,7 +5,7 @@ using CommunityPatch;
 using TaleWorlds.Library;
 using TaleWorlds.TwoDimension;
 
-namespace Aragas.TextureImporting
+namespace Aragas.TextureImportingHack
 {   // Character icon on Map:
     // ButtonWidget with child ImageIdentifierWidget
     // ImageId = CharacterId data

@@ -26,7 +26,7 @@ namespace Aragas.CampaignSystem.Actions
             {
                 if (victim.IsEnemy(contractorKingdomHero))
                 {
-                    ApplyRelation(
+                    AragasChangeRelationAction.ApplyRelation(
                         killer,
                         contractorKingdomHero,
                         5 * multiplier,
@@ -47,7 +47,7 @@ namespace Aragas.CampaignSystem.Actions
                     var contractorKingdomHeroHonor = victim.GetTraitLevel(DefaultTraits.Honor);
                     if (contractorKingdomHeroHonor > 0)
                     {
-                        ApplyRelation(
+                        AragasChangeRelationAction.ApplyRelation(
                             killer,
                             contractorKingdomHero,
                             2 * contractorKingdomHeroHonor * multiplier,
@@ -66,7 +66,7 @@ namespace Aragas.CampaignSystem.Actions
                     var contractorKingdomHeroMercy = victim.GetTraitLevel(DefaultTraits.Mercy);
                     if (contractorKingdomHeroMercy > 0)
                     {
-                        ApplyRelation(
+                        AragasChangeRelationAction.ApplyRelation(
                             killer,
                             contractorKingdomHero,
                             -2 * contractorKingdomHeroMercy * multiplier,
@@ -74,16 +74,6 @@ namespace Aragas.CampaignSystem.Actions
                             false && isPlayer);
                     }
                 }
-            }
-        }
-
-        private static void ApplyRelation(Hero hero, Hero toHero, int relation, int cap, bool showQuickNotification = true)
-        {
-            //var contractorKingdomHeroRelation = hero.GetRelation(toHero);
-            var contractorKingdomHeroRelation = CharacterRelationManager.GetHeroRelation(hero, toHero);
-            if (contractorKingdomHeroRelation + relation < cap)
-            {
-                ChangeRelationAction.ApplyRelationChangeBetweenHeroes(hero, toHero, relation, showQuickNotification);
             }
         }
     }

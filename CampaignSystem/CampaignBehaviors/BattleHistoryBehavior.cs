@@ -32,9 +32,9 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
                 explanation?.AddLine(GameTexts.FindText("str_mercenary_contract_not_contributing_to_war", null).ToString(), penalty);
             }
         }
-        private void OnBattleEnded(MapEvent battle, CampaignTime time)
+        private void OnBattleEnded(MapEvent battle, CampaignTime endingTime)
         {
-            _currentMonthBattleHistories.Add(new BattleHistoryEntry(battle, time));
+            _currentMonthBattleHistories.Add(new BattleHistoryEntry(battle, endingTime));
         }
         private void OnWeeklyTick()
         {
@@ -58,7 +58,7 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
                 var mercenary = Clan.PlayerClan.Leader;
                 var mercenaryFaction = mercenary.MapFaction;
 
-                if (mercenaryClan.LastFactionChangeTime.ElapsedDaysUntilNow >= 7F)
+                if (mercenaryClan.LastFactionChangeTime.ElapsedDaysUntilNow >= MercenaryContractOptions.Instance.DaysBeforeInfluencePenalty)
                 {
                     var days = MercenaryManager.DaysAfterContractStartedOrRenewed(mercenaryClan);
                     return _currentMonthBattleHistories

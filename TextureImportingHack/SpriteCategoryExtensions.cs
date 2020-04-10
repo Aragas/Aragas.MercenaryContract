@@ -1,12 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+
 using CommunityPatch;
+
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Library;
 using TaleWorlds.TwoDimension;
 
-namespace Aragas.TextureImporting
+namespace Aragas.TextureImportingHack
 {
 	public static class SpriteCategoryExtensions
 	{
