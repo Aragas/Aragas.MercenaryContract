@@ -17,7 +17,7 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
 
         public override void RegisterEvents()
         {
-            MercenaryContractCampaignEvents.BattleEnded.AddNonSerializedListener(this, OnBattleEnded);
+            CampaignEvents.MapEventEnded.AddNonSerializedListener(this, OnMapEventEnded);
             MercenaryContractCampaignEvents.CalculateInfluenceChange.AddNonSerializedListener(this, OnCalculateInfluenceChange);
             CampaignEvents.WeeklyTickEvent.AddNonSerializedListener(this, OnWeeklyTick);
         }
@@ -28,13 +28,16 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
                 var penalty = MercenaryContractOptions.Instance.InfluencePenalty;
 
                 influence.Value += penalty;
-                // Null check is critical, explanation will be null sometimes.
+                // Null check is critical, explanation can be null sometimes.
                 explanation?.AddLine(GameTexts.FindText("str_mercenary_contract_not_contributing_to_war", null).ToString(), penalty);
             }
         }
-        private void OnBattleEnded(MapEvent battle, CampaignTime endingTime)
+        private void OnMapEventEnded(MapEvent mapEvent)
         {
-            _currentMonthBattleHistories.Add(new BattleHistoryEntry(battle, endingTime));
+            if(mapEvent.EventType == MapEvent.BattleTypes.None)
+                return;
+
+            _currentMonthBattleHistories.Add(new BattleHistoryEntry(mapEvent, CampaignTime.Now));
         }
         private void OnWeeklyTick()
         {
@@ -52,7 +55,6 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
         private bool IsContributingToWar(Clan mercenaryClan)
         {
             var isAtWar = FactionManager.GetEnemyFactions(mercenaryClan.Kingdom).Any();
-
             if (isAtWar)
             {
                 var mercenary = Clan.PlayerClan.Leader;

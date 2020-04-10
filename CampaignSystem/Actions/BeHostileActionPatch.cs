@@ -5,7 +5,8 @@ using TaleWorlds.CampaignSystem.Actions;
 
 namespace Aragas.CampaignSystem.Actions
 {
-    [HarmonyPatch(typeof(BeHostileAction), "ApplyInternal")]
+    [HarmonyPatch(typeof(BeHostileAction))]
+    [HarmonyPatch("ApplyInternal")]
     public class BeHostileActionPatch
     {
         // Reduce/remove? the relationship loss when attacking an enemy of the Kingdom (MelissaSanctum)

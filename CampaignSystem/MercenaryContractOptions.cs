@@ -55,6 +55,11 @@ namespace Aragas.CampaignSystem
         public int AttackedCap { get; } = -10;
 
         /// <summary>
+        /// Maximum relationship to decrease to when attacking an enemy of the Kingdom
+        /// </summary>
+        public int HelpedDefenderCap { get; } = 10;
+
+        /// <summary>
         /// Minimum amount battles needed to perform to avoid influence penalty
         /// </summary>
         public int MinimumBattleCount { get; } = 10;

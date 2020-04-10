@@ -8,11 +8,12 @@ namespace Aragas.CampaignSystem.Actions
     /// <summary>
     /// While there exists OnPrisonerReleased, we can't capture facilitator Hero.
     /// </summary>
-    [HarmonyPatch(typeof(EndCaptivityAction), "ApplyInternal")]
+    [HarmonyPatch(typeof(EndCaptivityAction))]
+    [HarmonyPatch("ApplyInternal")]
     public class SetPrisonerFreeActionPatch
     {
         // If you let leaders of the parties you defeat go, same thing with the [Merciful] trait.
-        public static void Prefix(Hero prisoner, EndCaptivityDetail detail, Hero facilitator = null)
+        public static void Prefix(Hero prisoner, EndCaptivityDetail detail, Hero facilitator)
         {
             if (prisoner == null || facilitator == null || detail != EndCaptivityDetail.ReleasedAfterBattle)
                 return;
@@ -29,7 +30,7 @@ namespace Aragas.CampaignSystem.Actions
                 AragasChangeRelationAction.ApplyRelation(
                     facilitator,
                     prisoner,
-                    1 * multiplier,
+                    2 * multiplier,
                     MercenaryContractOptions.Instance.EnemyCap,
                     true && isPlayer);
             }
@@ -38,7 +39,7 @@ namespace Aragas.CampaignSystem.Actions
                 AragasChangeRelationAction.ApplyRelation(
                     facilitator,
                     prisoner,
-                    2 * multiplier,
+                    1 * multiplier,
                     MercenaryContractOptions.Instance.EnemyCap,
                     true && isPlayer);
             }

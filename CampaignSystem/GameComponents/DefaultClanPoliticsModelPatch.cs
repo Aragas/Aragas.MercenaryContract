@@ -5,8 +5,9 @@ using TaleWorlds.CampaignSystem.SandBox.GameComponents;
 
 namespace Aragas.CampaignSystem.GameComponents
 {
-    [HarmonyPatch(typeof(DefaultClanPoliticsModel), "CalculateInfluenceChange")]
-    public class DefaultClanPoliticsModelPatch1
+    [HarmonyPatch(typeof(DefaultClanPoliticsModel))]
+    [HarmonyPatch("CalculateInfluenceChange")]
+    public class DefaultClanPoliticsModelPatch
     {
         public static void Postfix(ref float __result, Clan clan, StatExplainer explanation)
         {

@@ -3,7 +3,7 @@ using Aragas.CampaignSystem.LogEntries;
 using Aragas.CampaignSystem.MapNotificationTypes;
 
 using System.Collections.Generic;
-
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.SaveSystem;
 
 namespace Aragas.SaveSystem
@@ -25,6 +25,7 @@ namespace Aragas.SaveSystem
         protected override void DefineContainerDefinitions()
         {
             ConstructContainerDefinition(typeof(List<BattleHistoryEntry>));
+			ConstructContainerDefinition(typeof(Dictionary<MapEvent, List<PartyBase>>));
         }
 	}
 }

@@ -1,18 +1,20 @@
 ﻿using HarmonyLib;
 
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
 
 namespace Aragas.CampaignSystem
 {
-    [HarmonyPatch(typeof(MapEvent), "FinalizeEvent")]
+    [HarmonyPatch(typeof(MapEvent))]
+    [HarmonyPatch("AddInvolvedParty")]
     public class MapEventPatch
     {
-        public static void Prefix(MapEvent __instance)
+        public static void Postfix(MapEvent __instance, PartyBase involvedParty, BattleSideEnum side, bool notFromInit)
         {
-            if(__instance.IsFinalized || __instance.EventType == MapEvent.BattleTypes.None)
+            if(!notFromInit)
                 return;
 
-            MercenaryContractCampaignEvents.Instance.OnBattleEnded(__instance, CampaignTime.Now);
+            MercenaryContractCampaignEvents.Instance.OnPartyJoinedMapEvent(__instance, involvedParty);
         }
     }
 }

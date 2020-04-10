@@ -5,7 +5,8 @@ using TaleWorlds.CampaignSystem.Actions;
 
 namespace Aragas.CampaignSystem.Actions
 {
-    [HarmonyPatch(typeof(KillCharacterAction), "ApplyInternal")]
+    [HarmonyPatch(typeof(KillCharacterAction))]
+    [HarmonyPatch("ApplyInternal")]
     public class KillCharacterActionPatch
     {
         public static void Postfix(Hero victim, Hero killer, KillCharacterAction.KillCharacterActionDetail actionDetail, bool showNotification)

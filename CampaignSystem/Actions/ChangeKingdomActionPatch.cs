@@ -7,7 +7,8 @@ using TaleWorlds.CampaignSystem.Actions;
 
 namespace Aragas.CampaignSystem.Actions
 {
-    [HarmonyPatch(typeof(ChangeKingdomAction), "ApplyByLeaveKingdomAsMercenaryForNoPayment")]
+    [HarmonyPatch(typeof(ChangeKingdomAction))]
+    [HarmonyPatch("ApplyByLeaveKingdomAsMercenaryForNoPayment")]
     public class ChangeKingdomActionPatch
     {
         public static void Postfix(Clan mercenaryClan, Kingdom kingdom, bool showNotification)

@@ -17,7 +17,6 @@ using TaleWorlds.MountAndBlade;
 namespace Aragas.MountAndBlade
 {
     // TODO: * Introduce 'rewards' for various war actions, like joining armies and capturing towns/castles(filipegroh)
-
     public class MercenaryContractSubModule : MBSubModuleBase
     {
         public static MercenaryContractSubModule Current { get; private set; } = default!;
@@ -61,6 +60,7 @@ namespace Aragas.MountAndBlade
 			if (game.GameType is Campaign campaign && gameStarter is CampaignGameStarter campaignGameStarter)
 			{
 				campaignGameStarter.LoadGameTexts($"{BasePath.Name}Modules/Aragas.MercenaryContract/ModuleData/global_strings.xml");
+                campaignGameStarter.AddBehavior(new BattleBehavior());
 				campaignGameStarter.AddBehavior(new BattleHistoryBehavior());
 				campaignGameStarter.AddBehavior(new MercenaryContractBehavior());
 
