@@ -14,7 +14,7 @@ namespace Aragas.CampaignSystem.ViewModelCollection.Map
 	// MapNotificationVM classes, this should still work and should not break the game
 	[HarmonyPatch(typeof(MapNotificationVM))]
     [HarmonyPatch("DetermineNotificationType")]
-	public class MapNotificationVMPatch
+    internal class MapNotificationVMPatch
 	{
         private static MethodInfo RemoveNotificationItemMethod { get; } =
             typeof(MapNotificationVM).GetMethod("RemoveNotificationItem", BindingFlags.Instance | BindingFlags.NonPublic);

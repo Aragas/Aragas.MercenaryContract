@@ -9,12 +9,12 @@ namespace Aragas.CampaignSystem.Actions
 {
     [HarmonyPatch(typeof(ChangeKingdomAction))]
     [HarmonyPatch("ApplyByLeaveKingdomAsMercenaryForNoPayment")]
-    public class ChangeKingdomActionPatch
+    internal class ChangeKingdomActionPatch
     {
         public static void Postfix(Clan mercenaryClan, Kingdom kingdom, bool showNotification)
         {
             // Let NPC's logic control leaving for now.
-            if (mercenaryClan != Clan.PlayerClan)
+            if (/*!MercenaryContractOptions.ApplyRelationshipRulesToNPC && */mercenaryClan != Clan.PlayerClan)
                 return;
 
             var isAtWar = FactionManager.GetEnemyFactions(kingdom).Any();
@@ -23,7 +23,7 @@ namespace Aragas.CampaignSystem.Actions
                 ChangeRelationAction.ApplyRelationChangeBetweenHeroes(
                     mercenaryClan.Leader,
                     contractorClan.Leader,
-                    isAtWar ? MercenaryContractOptions.Instance.LeavingLossWar : MercenaryContractOptions.Instance.LeavingLossPeace,
+                    isAtWar ? MercenaryContractOptions.LeavingLossWar : MercenaryContractOptions.LeavingLossPeace,
                     true);
             }
         }

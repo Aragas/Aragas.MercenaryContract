@@ -40,7 +40,7 @@ namespace Aragas.CampaignSystem.ViewModelCollection.Map
 			if (!MercenaryContractMapNotification.IsHandled)
             {
                 var textObject = GameTexts.FindText("str_mercenary_contract_expired_desc", null);
-                textObject.SetTextVariable("DAYS", MercenaryContractOptions.Instance.ContractLengthInDays);
+                textObject.SetTextVariable("DAYS", MercenaryContractOptions.ContractLengthInDays);
 
 				InformationManager.ShowInquiry(
 					new InquiryData(

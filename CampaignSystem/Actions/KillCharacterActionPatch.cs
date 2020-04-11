@@ -7,18 +7,16 @@ namespace Aragas.CampaignSystem.Actions
 {
     [HarmonyPatch(typeof(KillCharacterAction))]
     [HarmonyPatch("ApplyInternal")]
-    public class KillCharacterActionPatch
+    internal class KillCharacterActionPatch
     {
         public static void Postfix(Hero victim, Hero killer, KillCharacterAction.KillCharacterActionDetail actionDetail, bool showNotification)
         {
             if (victim.IsAlive || actionDetail != KillCharacterAction.KillCharacterActionDetail.Executed)
                 return;
 
-            var isPlayer = killer == Clan.PlayerClan.Leader;
-
             var multiplier = killer.Clan.IsUnderMercenaryService 
-                ? MercenaryContractOptions.Instance.MercenaryMultiplier 
-                : MercenaryContractOptions.Instance.VassalMultiplier;
+                ? MercenaryContractOptions.MercenaryMultiplier 
+                : MercenaryContractOptions.VassalMultiplier;
 
             var contractorKingdom = killer.Clan.Kingdom;
 
@@ -31,8 +29,8 @@ namespace Aragas.CampaignSystem.Actions
                         killer,
                         contractorKingdomHero,
                         5 * multiplier,
-                        MercenaryContractOptions.Instance.EnemyCap,
-                        true && isPlayer);
+                        MercenaryContractOptions.EnemyCap,
+                        true);
                 }
             }
 
@@ -52,8 +50,8 @@ namespace Aragas.CampaignSystem.Actions
                             killer,
                             contractorKingdomHero,
                             2 * contractorKingdomHeroHonor * multiplier,
-                            MercenaryContractOptions.Instance.TraitCap,
-                            false && isPlayer);
+                            MercenaryContractOptions.TraitCap,
+                            false);
                     }
                 }
             }
@@ -71,8 +69,8 @@ namespace Aragas.CampaignSystem.Actions
                             killer,
                             contractorKingdomHero,
                             -2 * contractorKingdomHeroMercy * multiplier,
-                            -MercenaryContractOptions.Instance.TraitCap,
-                            false && isPlayer);
+                            -MercenaryContractOptions.TraitCap,
+                            false);
                     }
                 }
             }

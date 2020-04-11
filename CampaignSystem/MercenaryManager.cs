@@ -22,12 +22,12 @@ namespace Aragas.CampaignSystem
 
         public static float DaysAfterContractStartedOrRenewed(Clan mercenaryClan)
         {
-            var contractLength = MercenaryContractOptions.Instance.ContractLengthInDays;
+            var contractLength = MercenaryContractOptions.ContractLengthInDays;
             var elapsedDays = mercenaryClan.LastFactionChangeTime.ElapsedDaysUntilNow;
             return elapsedDays - (MathF.Floor(elapsedDays / contractLength) * contractLength);
         }
 
-        public static float DaysBeforeContractEnds(Clan mercenaryClan) => MercenaryContractOptions.Instance.ContractLengthInDays - DaysAfterContractStartedOrRenewed(mercenaryClan);
+        public static float DaysBeforeContractEnds(Clan mercenaryClan) => MercenaryContractOptions.ContractLengthInDays - DaysAfterContractStartedOrRenewed(mercenaryClan);
 
 
         public static void RenewContract(Hero mercenary)

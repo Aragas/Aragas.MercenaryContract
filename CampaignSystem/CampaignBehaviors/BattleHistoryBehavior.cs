@@ -9,9 +9,11 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
     public class BattleHistoryBehavior : CampaignBehaviorBase
     {
         private List<BattleHistoryEntry> _currentMonthBattleHistories = new List<BattleHistoryEntry>();
-        
+        private Dictionary<MapEvent, List<PartyBase>> _partiedJoinedMapEvent = new Dictionary<MapEvent, List<PartyBase>>(new MapEventComparer());
+
         public override void SyncData(IDataStore dataStore)
         {
+            dataStore.SyncData("partiedJoinedMapEvent", ref _partiedJoinedMapEvent);
             dataStore.SyncData("battleHistories", ref _currentMonthBattleHistories);
         }
 
@@ -25,7 +27,7 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
         {
             if (clan.IsUnderMercenaryService && !IsContributingToWar(clan))
             {
-                var penalty = MercenaryContractOptions.Instance.InfluencePenalty;
+                var penalty = MercenaryContractOptions.InfluencePenalty;
 
                 influence.Value += penalty;
                 // Null check is critical, explanation can be null sometimes.
@@ -44,7 +46,7 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
             var toRemove = new List<BattleHistoryEntry>();
             foreach (var battleHistoryEntry in _currentMonthBattleHistories)
             {
-                if (battleHistoryEntry.Time.ElapsedDaysUntilNow >= MercenaryContractOptions.Instance.ContractLengthInDays)
+                if (battleHistoryEntry.Time.ElapsedDaysUntilNow >= MercenaryContractOptions.ContractLengthInDays)
                     toRemove.Add(battleHistoryEntry);
             }
             foreach (var entry in toRemove)
@@ -54,23 +56,29 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
 
         private bool IsContributingToWar(Clan mercenaryClan)
         {
+            if (!MercenaryContractOptions.ApplyRelationshipRulesToNPC && mercenaryClan == Clan.PlayerClan)
+                return true;
+
             var isAtWar = FactionManager.GetEnemyFactions(mercenaryClan.Kingdom).Any();
             if (isAtWar)
             {
-                var mercenary = Clan.PlayerClan.Leader;
+                var mercenary = mercenaryClan.Leader;
                 var mercenaryFaction = mercenary.MapFaction;
 
-                if (mercenaryClan.LastFactionChangeTime.ElapsedDaysUntilNow >= MercenaryContractOptions.Instance.DaysBeforeInfluencePenalty)
+                if (mercenaryClan.LastFactionChangeTime.ElapsedDaysUntilNow >= MercenaryContractOptions.DaysBeforeInfluencePenalty)
                 {
                     var days = MercenaryManager.DaysAfterContractStartedOrRenewed(mercenaryClan);
                     return _currentMonthBattleHistories
                         .Where(b => b.Time.ElapsedDaysUntilNow < days)
                         .Count(b =>
                         {
+                            if (b.Attacker?.LeaderHero?.MapFaction == null || b.Defender?.LeaderHero?.MapFaction == null)
+                                return false;
+
                             var flag1 = mercenary == b.Attacker.LeaderHero && mercenaryFaction.IsAtWarWith(b.Defender.LeaderHero.MapFaction);
                             var flag2 = mercenary == b.Defender.LeaderHero && mercenaryFaction.IsAtWarWith(b.Attacker.LeaderHero.MapFaction);
                             return flag1 || flag2;
-                        }) >= MercenaryContractOptions.Instance.MinimumBattleCount;
+                        }) >= MercenaryContractOptions.MinimumBattleCount;
                 }
                 else
                     return true;

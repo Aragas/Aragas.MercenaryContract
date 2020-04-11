@@ -7,11 +7,14 @@ namespace Aragas.CampaignSystem.Actions
     {
         private static void ApplyInternal(Hero hero, Hero toHero, int relation, int cap, bool showQuickNotification = true)
         {
+            if(!MercenaryContractOptions.ApplyRelationshipRulesToNPC && hero != Hero.MainHero)
+                return;
+
             //var contractorKingdomHeroRelation = hero.GetRelation(toHero);
             var contractorKingdomHeroRelation = CharacterRelationManager.GetHeroRelation(hero, toHero);
             if (contractorKingdomHeroRelation + relation < cap)
             {
-                ChangeRelationAction.ApplyRelationChangeBetweenHeroes(hero, toHero, relation, showQuickNotification);
+                ChangeRelationAction.ApplyRelationChangeBetweenHeroes(hero, toHero, relation, showQuickNotification && hero == Hero.MainHero);
             }
         }
 

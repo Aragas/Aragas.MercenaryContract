@@ -1,4 +1,4 @@
-﻿namespace Aragas.CampaignSystem
+﻿namespace Aragas
 {
     public class RefContainer<T> where T : struct
     {

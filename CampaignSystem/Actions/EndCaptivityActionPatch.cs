@@ -10,38 +10,35 @@ namespace Aragas.CampaignSystem.Actions
     /// </summary>
     [HarmonyPatch(typeof(EndCaptivityAction))]
     [HarmonyPatch("ApplyInternal")]
-    public class SetPrisonerFreeActionPatch
+    internal class EndCaptivityActionPatch
     {
         // If you let leaders of the parties you defeat go, same thing with the [Merciful] trait.
-        public static void Prefix(Hero prisoner, EndCaptivityDetail detail, Hero facilitator)
+        public static void Prefix(Hero prisoner, EndCaptivityDetail detail, Hero facilitatior)
         {
-            if (prisoner == null || facilitator == null || detail != EndCaptivityDetail.ReleasedAfterBattle)
+            if (prisoner == null || facilitatior == null || detail != EndCaptivityDetail.ReleasedAfterBattle)
                 return;
 
-
-            var isPlayer = facilitator == Clan.PlayerClan.Leader;
-
-            var multiplier = facilitator.Clan.IsUnderMercenaryService
-                ? MercenaryContractOptions.Instance.MercenaryMultiplier
-                : MercenaryContractOptions.Instance.VassalMultiplier;
+            var multiplier = facilitatior.Clan.IsUnderMercenaryService
+                ? MercenaryContractOptions.MercenaryMultiplier
+                : MercenaryContractOptions.VassalMultiplier;
 
             if (prisoner.GetTraitLevel(DefaultTraits.Mercy) > 0)
             {
                 AragasChangeRelationAction.ApplyRelation(
-                    facilitator,
+                    facilitatior,
                     prisoner,
                     2 * multiplier,
-                    MercenaryContractOptions.Instance.EnemyCap,
-                    true && isPlayer);
+                    MercenaryContractOptions.EnemyCap,
+                    true);
             }
             else
             {
                 AragasChangeRelationAction.ApplyRelation(
-                    facilitator,
+                    facilitatior,
                     prisoner,
                     1 * multiplier,
-                    MercenaryContractOptions.Instance.EnemyCap,
-                    true && isPlayer);
+                    MercenaryContractOptions.EnemyCap,
+                    true);
             }
         }
     }

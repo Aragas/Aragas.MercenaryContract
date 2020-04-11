@@ -7,7 +7,7 @@ namespace Aragas.CampaignSystem.Actions
 {
     [HarmonyPatch(typeof(BeHostileAction))]
     [HarmonyPatch("ApplyInternal")]
-    public class BeHostileActionPatch
+    internal class BeHostileActionPatch
     {
         // Reduce/remove? the relationship loss when attacking an enemy of the Kingdom (MelissaSanctum)
         public static void Prefix(PartyBase attackerParty, PartyBase defenderParty, ref float value)

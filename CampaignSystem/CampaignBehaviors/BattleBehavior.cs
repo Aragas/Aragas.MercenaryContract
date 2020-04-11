@@ -1,6 +1,6 @@
 ﻿using Aragas.CampaignSystem.Actions;
+using Aragas.CampaignSystem.Extensions;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -48,14 +48,14 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
                 case BattleSideEnum.Attacker:
                 {
                     var hero = attacker.LeaderHero;
-
-                    var isPlayer = hero == Clan.PlayerClan.Leader;
+                    if (hero == null)
+                        break;
 
                     var multiplier = hero.Clan.IsUnderMercenaryService
-                        ? MercenaryContractOptions.Instance.MercenaryMultiplier
-                        : MercenaryContractOptions.Instance.VassalMultiplier;
+                        ? MercenaryContractOptions.MercenaryMultiplier
+                        : MercenaryContractOptions.VassalMultiplier;
 
-                    var ratio = (defender.TotalStrength / attacker.TotalStrength) - 1f;
+                    var ratio = (mapEvent.StrengthOfSide[0] / mapEvent.StrengthOfSide[1]) - 1f;
 
                     var value = 0;
                     if (ratio >= 0.33f)
@@ -76,8 +76,8 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
                                 hero,
                                 kingdomHero,
                                 value * multiplier * valor,
-                                MercenaryContractOptions.Instance.TraitCap,
-                                true && isPlayer);
+                                MercenaryContractOptions.TraitCap,
+                                true);
                         }
                     }
 
@@ -103,16 +103,21 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
                         foreach (var partyBase in parties)
                         {
                             var joinedHero = partyBase.LeaderHero;
+                            if (joinedHero == null)
+                                continue;
 
-                            var isPlayer = joinedHero == Clan.PlayerClan.Leader;
+                            var contributionRate = mapEvent.AttackerSide.GetPartyContributionRate(partyBase);
+                            if (contributionRate < 0.3f)
+                                continue;
 
                             var multiplier = joinedHero.Clan.IsUnderMercenaryService
-                                ? MercenaryContractOptions.Instance.MercenaryMultiplier
-                                : MercenaryContractOptions.Instance.VassalMultiplier;
+                                ? MercenaryContractOptions.MercenaryMultiplier
+                                : MercenaryContractOptions.VassalMultiplier;
 
                             var otherHeroesNotJoined = defenders
                                 .Where(p => !parties.Contains(p))
                                 .Select(p => p.LeaderHero)
+                                .Where(h => h != null)
                                 .ToList();
 
                             foreach (var notJoinedHero in otherHeroesNotJoined)
@@ -124,8 +129,8 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
                                         joinedHero,
                                         notJoinedHero,
                                         value * multiplier * generosity,
-                                        MercenaryContractOptions.Instance.HelpedDefenderCap,
-                                        true && isPlayer);
+                                        MercenaryContractOptions.HelpedDefenderCap,
+                                        true);
                                 }
                             }
                         }
@@ -164,13 +169,6 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
                 }
             }
             toRemove.Clear();
-        }
-
-        private class MapEventComparer : IEqualityComparer<MapEvent>
-        {
-            public bool Equals(MapEvent x, MapEvent y) => string.Equals(x.StringId, y.StringId, StringComparison.InvariantCulture);
-
-            public int GetHashCode(MapEvent obj) => obj.StringId.GetHashCode();
         }
     }
 }

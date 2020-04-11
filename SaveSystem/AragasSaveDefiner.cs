@@ -3,12 +3,13 @@ using Aragas.CampaignSystem.LogEntries;
 using Aragas.CampaignSystem.MapNotificationTypes;
 
 using System.Collections.Generic;
+
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.SaveSystem;
 
 namespace Aragas.SaveSystem
 {
-    public class AragasSaveDefiner : SaveableTypeDefiner
+    internal class AragasSaveDefiner : SaveableTypeDefiner
 	{
 		// Nice.
 		public AragasSaveDefiner() : base(1_690_000) { }

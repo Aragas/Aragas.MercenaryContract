@@ -7,7 +7,7 @@ namespace Aragas.CampaignSystem.GameComponents
 {
     [HarmonyPatch(typeof(DefaultClanPoliticsModel))]
     [HarmonyPatch("CalculateInfluenceChange")]
-    public class DefaultClanPoliticsModelPatch
+    internal class DefaultClanPoliticsModelPatch
     {
         public static void Postfix(ref float __result, Clan clan, StatExplainer explanation)
         {
