@@ -12,6 +12,6 @@
     <string id="str_mercenary_contract_encyclopedia_renewed" text="{=EiGtJGbR}Mercenary Contract of {HERO.LINK} with {FACTION} was renewed." />
     <string id="str_mercenary_contract_encyclopedia_ended" text="{=AiRfHGbRH}Mercenary Contract of {HERO.LINK} with {FACTION} was ended." />
 
-    <string id="str_mercenary_contract_not_contributing_to_war" text="{=YiGfDGvQG} No contribution to war efforts." />
+    <string id="str_mercenary_contract_not_contributing_to_war" text="{=YiGfDGvQG}No contribution to war efforts." />
   </strings>
 </base>

@@ -37,7 +37,7 @@ namespace Aragas.CampaignSystem
         [SaveableField(15)]
         private int _influencePenalty = -1;
 
-        private static MercenaryContractOptions _current => MercenaryContractSubModule.Current.Options;
+        private static MercenaryContractOptions _current => MercenaryContractSubModule.Options;
 
         /// <summary>
         /// 

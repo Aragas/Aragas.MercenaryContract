@@ -18,7 +18,7 @@ namespace Aragas.CampaignSystem
         private static readonly MethodInfo CheckIfPartyIconIsDirtyMethod =
             typeof(ChangeKingdomAction).GetMethod("CheckIfPartyIconIsDirty", BindingFlags.NonPublic | BindingFlags.Static);
 
-        public static MercenaryManager Instance => MercenaryContractSubModule.Current.MercenaryManager;
+        public static MercenaryManager Instance => MercenaryContractSubModule.MercenaryManager;
 
         public static float DaysAfterContractStartedOrRenewed(Clan mercenaryClan)
         {

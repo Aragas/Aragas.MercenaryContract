@@ -6,7 +6,7 @@ namespace Aragas.CampaignSystem
 {
     public class MercenaryContractCampaignEvents
     {
-        public static MercenaryContractCampaignEvents Instance => MercenaryContractSubModule.Current.CampaignEvents;
+        public static MercenaryContractCampaignEvents Instance => MercenaryContractSubModule.CampaignEvents;
 
         public static IMbEvent<RefContainer<float>, Clan, StatExplainer> CalculateInfluenceChange => Instance._calculateInfluenceChange;
         public static IMbEvent<MapEvent, PartyBase> PartyJoinedMapEvent => Instance._partyJoinedMapEvent;

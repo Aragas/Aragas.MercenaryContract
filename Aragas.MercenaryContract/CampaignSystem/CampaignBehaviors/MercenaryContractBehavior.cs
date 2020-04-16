@@ -18,6 +18,9 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
 		{
             foreach (var clan in Clan.All.Where(c => c.IsUnderMercenaryService))
             {
+                if (!MercenaryContractOptions.ApplyRelationshipRulesToNPC && clan != Clan.PlayerClan)
+                    continue;
+
                 if (MercenaryManager.DaysBeforeContractEnds(clan) < 1f)
                 {
                     LogEntry.AddLogEntry(new MercenaryContractExpiredLogEntry(clan.Leader));

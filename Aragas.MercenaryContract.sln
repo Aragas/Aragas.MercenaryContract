@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aragas.MercenaryContract", "Aragas.MercenaryContract.csproj", "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aragas.MercenaryContract", "Aragas.MercenaryContract\Aragas.MercenaryContract.csproj", "{1AF7C530-0F81-4E60-9CBD-D2BF3B2C122B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MBOptionScreen", "..\ModLib\MBOptionScreen.csproj", "{FF9FC9DB-72FA-4E48-9FEF-61DEDAF6482B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AF7C530-0F81-4E60-9CBD-D2BF3B2C122B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF7C530-0F81-4E60-9CBD-D2BF3B2C122B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AF7C530-0F81-4E60-9CBD-D2BF3B2C122B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AF7C530-0F81-4E60-9CBD-D2BF3B2C122B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF9FC9DB-72FA-4E48-9FEF-61DEDAF6482B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF9FC9DB-72FA-4E48-9FEF-61DEDAF6482B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF9FC9DB-72FA-4E48-9FEF-61DEDAF6482B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF9FC9DB-72FA-4E48-9FEF-61DEDAF6482B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

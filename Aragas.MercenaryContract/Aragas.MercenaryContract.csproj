@@ -1,7 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <!--Harmony does not provide a netstandard2.0 implementation and even if it did,
+    it would bring a lot of .dll with itself, so stick to net472 for now-->
+    <!--<TargetFrameworks>net472;netstandard2.0</TargetFrameworks>-->
+    <TargetFramework>net472</TargetFramework>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
     <RootNamespace>Aragas</RootNamespace>
@@ -44,9 +47,15 @@
       <Private>False</Private>
     </Reference>
   </ItemGroup>
-  
+
   <ItemGroup>
-    <PackageReference Include="Lib.Harmony" Version="2.0.0.9" />
+    <PackageReference Include="Bannerlord.MBOptionScreen" Version="1.1.2" Condition="$(Configuration) == 'Release'" />
+    <PackageReference Include="Lib.Harmony" Version="2.0.0.9" Condition="$(TargetFramework) == 'net472'" />
+    <PackageReference Include="Aragas.Lib.Harmony" Version="2.0.0.9" Condition="$(TargetFramework) == 'netstandard2.0'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ModLib\MBOptionScreen.csproj" Condition="$(Configuration) == 'Debug'" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
