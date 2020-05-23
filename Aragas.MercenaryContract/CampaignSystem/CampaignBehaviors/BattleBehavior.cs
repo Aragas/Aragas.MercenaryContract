@@ -52,8 +52,8 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
                         break;
 
                     var multiplier = hero.Clan.IsUnderMercenaryService
-                        ? MercenaryContractOptions.MercenaryMultiplier
-                        : MercenaryContractOptions.VassalMultiplier;
+                        ? MercenarySettings.Instance.MercenaryMultiplier
+                        : MercenarySettings.Instance.VassalMultiplier;
 
                     var ratio = (mapEvent.StrengthOfSide[0] / mapEvent.StrengthOfSide[1]) - 1f;
 
@@ -76,7 +76,7 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
                                 hero,
                                 kingdomHero,
                                 value * multiplier * valor,
-                                MercenaryContractOptions.TraitCap,
+                                MercenarySettings.Instance.TraitCap,
                                 true);
                         }
                     }
@@ -111,8 +111,8 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
                                 continue;
 
                             var multiplier = joinedHero.Clan.IsUnderMercenaryService
-                                ? MercenaryContractOptions.MercenaryMultiplier
-                                : MercenaryContractOptions.VassalMultiplier;
+                                ? MercenarySettings.Instance.MercenaryMultiplier
+                                : MercenarySettings.Instance.VassalMultiplier;
 
                             var otherHeroesNotJoined = defenders
                                 .Where(p => !parties.Contains(p))
@@ -129,7 +129,7 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
                                         joinedHero,
                                         notJoinedHero,
                                         value * multiplier * generosity,
-                                        MercenaryContractOptions.HelpedDefenderCap,
+                                        MercenarySettings.Instance.HelpedDefenderCap,
                                         true);
                                 }
                             }

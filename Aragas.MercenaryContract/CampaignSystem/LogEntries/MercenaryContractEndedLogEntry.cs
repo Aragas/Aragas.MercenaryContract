@@ -5,6 +5,7 @@ using Helpers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
+using TaleWorlds.ObjectSystem;
 using TaleWorlds.SaveSystem;
 
 namespace Aragas.CampaignSystem.LogEntries
@@ -18,22 +19,13 @@ namespace Aragas.CampaignSystem.LogEntries
 		private readonly IFaction _hiringFaction;
 
 		public override CampaignTime KeepInHistoryTime => CampaignTime.Weeks(40f);
+        public override ChatNotificationType NotificationType => ChatNotificationType.Neutral;
 
 		public MercenaryContractEndedLogEntry(Hero mercenary, IFaction hiringFaction)
 		{
 			_mercenary = mercenary.CharacterObject;
 			_hiringFaction = hiringFaction;
-
-			if (mercenary.MapFaction == MobileParty.MainParty.MapFaction)
-			{
-				InteractiveNotificationData = new MercenaryContractMapNotification(
-					mercenary,
-					GameTexts.FindText("str_mercenary_contract_expired", null),
-					GetEncyclopediaText(),
-					false,
-					this);
-			}
-		}
+        }
 
 		public bool IsVisibleInEncyclopediaPageOf<T>(T obj) where T : MBObjectBase => obj == _mercenary?.HeroObject;
 
@@ -42,7 +34,7 @@ namespace Aragas.CampaignSystem.LogEntries
 			if (_mercenary == null || _hiringFaction == null)
 				return TextObject.Empty;
 
-			var textObject = GameTexts.FindText("str_mercenary_contract_encyclopedia_ended", null);
+			var textObject = GameTexts.FindText("str_mercenary_contract_encyclopedia_ended");
 			StringHelpers.SetCharacterProperties(
 				"HERO",
 				_mercenary,

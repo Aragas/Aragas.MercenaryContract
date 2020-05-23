@@ -23,30 +23,25 @@ namespace Aragas.MountAndBlade
     {
         private static MercenaryContractSubModule _instance;
 
-        private MercenaryContractOptions _options;
         private MercenaryManager _mercenaryManager;
         private MercenaryContractCampaignEvents _campaignEvents;
 
-        public static MercenaryContractOptions Options => _instance._options;
         public static MercenaryManager MercenaryManager => _instance._mercenaryManager;
         public static MercenaryContractCampaignEvents CampaignEvents => _instance._campaignEvents;
-
-        public MercenaryContractSubModule()
-        {
-            try
-			{
-				new Harmony("org.aragas.bannerlord.mercenarycontract").PatchAll(typeof(MercenaryContractSubModule).Assembly);
-            }
-			catch (Exception ex)
-			{
-                CommunityPatchSubModule.Error(ex, "[Aragas.MercenaryContract]: Error while trying to initialize Harmony!");
-			}
-        }
 
         protected override void OnSubModuleLoad()
         {
             base.OnSubModuleLoad();
             _instance = this;
+
+            try
+            {
+                new Harmony("org.aragas.bannerlord.mercenarycontract").PatchAll(typeof(MercenaryContractSubModule).Assembly);
+            }
+            catch (Exception ex)
+            {
+                CommunityPatchSubModule.Error(ex, "[Aragas.MercenaryContract]: Error while trying to initialize Harmony!");
+            }
 
             var mercenarycontractSpriteData = SpriteDataFactory.CreateNewFromModule(
 				"mercenarycontractSpriteData",
@@ -55,12 +50,12 @@ namespace Aragas.MountAndBlade
 
 			UIResourceManager.BrushFactory.ImportAndAppend(
 				"Map.Notification.Type.Circle.Image",
-				"MercenacyContractMapNotification",
+				"MercenaryContractMapNotification",
 				"Aragas.MercenaryContract.Map.Notification.Type.Circle.Image");
         }
         protected override void OnSubModuleUnloaded()
         {
-            _instance = null;
+            _instance = null!;
             base.OnSubModuleUnloaded();
         }
 
@@ -82,10 +77,14 @@ namespace Aragas.MountAndBlade
                     if (Clan.PlayerClan.IsUnderMercenaryService && Clan.PlayerClan.Kingdom == null)
                     {
                         Clan.PlayerClan.IsUnderMercenaryService = false;
-                        campaignStoryMode.UpdateDecisions();
                     }
 				}
             }
 		}
+
+        public override void OnGameEnd(Game game)
+        {
+            base.OnGameEnd(game);
+        }
     }
 }

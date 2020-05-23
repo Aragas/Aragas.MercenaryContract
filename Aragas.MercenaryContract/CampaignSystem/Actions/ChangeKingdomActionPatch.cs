@@ -23,7 +23,7 @@ namespace Aragas.CampaignSystem.Actions
                 ChangeRelationAction.ApplyRelationChangeBetweenHeroes(
                     mercenaryClan.Leader,
                     contractorClan.Leader,
-                    isAtWar ? MercenaryContractOptions.LeavingLossWar : MercenaryContractOptions.LeavingLossPeace,
+                    isAtWar ? MercenarySettings.Instance.LeavingLossWar : MercenarySettings.Instance.LeavingLossPeace,
                     true);
             }
         }

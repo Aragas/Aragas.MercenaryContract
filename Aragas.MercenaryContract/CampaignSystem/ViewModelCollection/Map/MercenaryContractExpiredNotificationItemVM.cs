@@ -39,16 +39,16 @@ namespace Aragas.CampaignSystem.ViewModelCollection.Map
 		{
 			if (!MercenaryContractMapNotification.IsHandled)
             {
-                var textObject = GameTexts.FindText("str_mercenary_contract_expired_desc", null);
-                textObject.SetTextVariable("DAYS", MercenaryContractOptions.ContractLengthInDays);
+                var textObject = GameTexts.FindText("str_mercenary_contract_expired_desc");
+                textObject.SetTextVariable("DAYS", MercenarySettings.Instance.ContractLengthInDays);
 
 				InformationManager.ShowInquiry(
 					new InquiryData(
-						GameTexts.FindText("str_mercenary_contract_expired", null).ToString(),
+						GameTexts.FindText("str_mercenary_contract_expired").ToString(),
                         textObject.ToString(), true,
 						true,
-						GameTexts.FindText("str_accept", null).ToString(),
-						GameTexts.FindText("str_reject", null).ToString(),
+						GameTexts.FindText("str_accept").ToString(),
+						GameTexts.FindText("str_reject").ToString(),
 						RenewContract,
 						EndContract,
 						""),

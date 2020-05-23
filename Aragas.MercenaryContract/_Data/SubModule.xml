@@ -6,26 +6,13 @@
   <MultiplayerModule value="false" />
   <Official value="false" />
   <DependedModules>
-    <DependedModule Id="Native" />
-    <DependedModule Id="SandBoxCore" />
-    <DependedModule Id="Sandbox" />
     <DependedModule Id="StoryMode" />
-    <DependedModule Id="CustomBattle"/>
   </DependedModules>
   <SubModules>
     <SubModule>
       <Name value="Aragas.MercenaryContract" />
       <DLLName value="Aragas.MercenaryContract.dll" />
       <SubModuleClassType value="Aragas.MountAndBlade.MercenaryContractSubModule" />
-      <Tags>
-        <Tag key="DedicatedServerType" value="none" />
-        <Tag key="IsNoRenderModeElement" value="false" />
-      </Tags>
-    </SubModule>
-    <SubModule>
-      <Name value="MBOptionScreen" />
-      <DLLName value="MBOptionScreen.dll" />
-      <SubModuleClassType value="MBOptionScreen.MBOptionScreenSubModule" />
       <Tags>
         <Tag key="DedicatedServerType" value="none" />
         <Tag key="IsNoRenderModeElement" value="false" />

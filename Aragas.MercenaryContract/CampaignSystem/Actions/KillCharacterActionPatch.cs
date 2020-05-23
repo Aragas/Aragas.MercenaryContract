@@ -15,8 +15,8 @@ namespace Aragas.CampaignSystem.Actions
                 return;
 
             var multiplier = killer.Clan.IsUnderMercenaryService 
-                ? MercenaryContractOptions.MercenaryMultiplier 
-                : MercenaryContractOptions.VassalMultiplier;
+                ? MercenarySettings.Instance.MercenaryMultiplier 
+                : MercenarySettings.Instance.VassalMultiplier;
 
             var contractorKingdom = killer.Clan.Kingdom;
 
@@ -29,7 +29,7 @@ namespace Aragas.CampaignSystem.Actions
                         killer,
                         contractorKingdomHero,
                         5 * multiplier,
-                        MercenaryContractOptions.EnemyCap,
+                        MercenarySettings.Instance.EnemyCap,
                         true);
                 }
             }
@@ -50,7 +50,7 @@ namespace Aragas.CampaignSystem.Actions
                             killer,
                             contractorKingdomHero,
                             2 * contractorKingdomHeroHonor * multiplier,
-                            MercenaryContractOptions.TraitCap,
+                            MercenarySettings.Instance.TraitCap,
                             false);
                     }
                 }
@@ -69,7 +69,7 @@ namespace Aragas.CampaignSystem.Actions
                             killer,
                             contractorKingdomHero,
                             -2 * contractorKingdomHeroMercy * multiplier,
-                            -MercenaryContractOptions.TraitCap,
+                            -MercenarySettings.Instance.TraitCap,
                             false);
                     }
                 }

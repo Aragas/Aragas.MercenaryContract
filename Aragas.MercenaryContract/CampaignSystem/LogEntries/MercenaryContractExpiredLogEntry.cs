@@ -5,49 +5,49 @@ using Helpers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
+using TaleWorlds.ObjectSystem;
 using TaleWorlds.SaveSystem;
 
 namespace Aragas.CampaignSystem.LogEntries
 {
-	public class MercenaryContractExpiredLogEntry : LogEntry
-	{
+	public class MercenaryContractExpiredLogEntry : LogEntry, IEncyclopediaLog
+    {
 		[SaveableField(5)]
 		private CharacterObject _mercenary;
 
 		[SaveableField(6)]
 		private IFaction _hiringFaction;
 
-        public override CampaignTime KeepInHistoryTime => CampaignTime.Weeks(1f);
+        public override CampaignTime KeepInHistoryTime => CampaignTime.Days(1f);
+        public override ChatNotificationType NotificationType => ChatNotificationType.Neutral;
 
 		public MercenaryContractExpiredLogEntry(Hero mercenary)
 		{
 			_mercenary = mercenary.CharacterObject;
 			_hiringFaction = mercenary.MapFaction;
+        }
 
-			if (mercenary == Hero.MainHero && mercenary.MapFaction == MobileParty.MainParty.MapFaction)
-			{
-				InteractiveNotificationData = new MercenaryContractMapNotification(
-					mercenary,
-					GameTexts.FindText("str_mercenary_contract_expired", null),
-                    GetDescriptionText(),
-					false,
-					this);
-			}
-		}
+        public bool IsVisibleInEncyclopediaPageOf<T>(T obj) where T : MBObjectBase => obj == _mercenary.HeroObject;
 
-		public TextObject GetDescriptionText()
-		{
-            if (_mercenary == null || _hiringFaction == null)
+        public TextObject GetEncyclopediaText()
+        {
+            if (_mercenary == null)
                 return TextObject.Empty;
 
-            var textObject = GameTexts.FindText("str_mercenary_contract_encyclopedia", null);
-			StringHelpers.SetCharacterProperties(
-				"HERO",
-				_mercenary,
-				null,
-				textObject);
-			textObject.SetTextVariable("FACTION", _hiringFaction.EncyclopediaLinkWithName);
-			return textObject;
-		}
-    }
+            // Since our e1.0.5 did not include _hiringFaction, workaround.
+            if (_hiringFaction == null)
+                _hiringFaction = _mercenary.HeroObject.MapFaction;
+
+            var textObject = GameTexts.FindText("str_mercenary_contract_encyclopedia");
+            StringHelpers.SetCharacterProperties(
+                "HERO",
+                _mercenary,
+                null,
+                textObject);
+            textObject.SetTextVariable("FACTION", _hiringFaction.EncyclopediaLinkWithName);
+            return textObject;
+        }
+
+        public override string ToString() => GetEncyclopediaText().ToString();
+	}
 }

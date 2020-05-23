@@ -6,18 +6,9 @@ namespace Aragas.CampaignSystem.Extensions
 {
     public static class MapEventSideExtensions
     {
-        public static int CalculateTotalContribution(this MapEventSide instance)
-        {
-            var num = 0;
-            foreach (var mapEventParty in instance.PartyRecs)
-            {
-                if (mapEventParty.Party.MemberRoster.Count > 0)
-                {
-                    num += mapEventParty.ContributionToBattle;
-                }
-            }
-            return num;
-        }
+        public static int CalculateTotalContribution(this MapEventSide instance) => instance.PartyRecs
+            .Where(mapEventParty => mapEventParty.Party.MemberRoster.Count > 0)
+            .Sum(mapEventParty => mapEventParty.ContributionToBattle);
 
         public static float GetPartyContributionRate(this MapEventSide instance, PartyBase partyBase)
         {

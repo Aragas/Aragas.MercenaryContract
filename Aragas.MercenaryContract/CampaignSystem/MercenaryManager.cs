@@ -22,12 +22,12 @@ namespace Aragas.CampaignSystem
 
         public static float DaysAfterContractStartedOrRenewed(Clan mercenaryClan)
         {
-            var contractLength = MercenaryContractOptions.ContractLengthInDays;
+            var contractLength = MercenarySettings.Instance.ContractLengthInDays;
             var elapsedDays = mercenaryClan.LastFactionChangeTime.ElapsedDaysUntilNow;
             return elapsedDays - (MathF.Floor(elapsedDays / contractLength) * contractLength);
         }
 
-        public static float DaysBeforeContractEnds(Clan mercenaryClan) => MercenaryContractOptions.ContractLengthInDays - DaysAfterContractStartedOrRenewed(mercenaryClan);
+        public static float DaysBeforeContractEnds(Clan mercenaryClan) => MercenarySettings.Instance.ContractLengthInDays - DaysAfterContractStartedOrRenewed(mercenaryClan);
 
 
         public static void RenewContract(Hero mercenary)
@@ -62,7 +62,7 @@ namespace Aragas.CampaignSystem
             mercenaryClan.IsUnderMercenaryService = false;
 
             if (mercenary == Hero.MainHero)
-                Campaign.Current.UpdateDecisions();
+                mercenaryClan.ClanLeaveKingdom(true);
 
             CheckIfPartyIconIsDirtyMethod.Invoke(null, new object[] { mercenaryClan, mercenaryKingdom });
 

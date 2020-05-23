@@ -19,8 +19,8 @@ namespace Aragas.CampaignSystem.Actions
                 return;
 
             var multiplier = facilitatior.Clan.IsUnderMercenaryService
-                ? MercenaryContractOptions.MercenaryMultiplier
-                : MercenaryContractOptions.VassalMultiplier;
+                ? MercenarySettings.Instance.MercenaryMultiplier
+                : MercenarySettings.Instance.VassalMultiplier;
 
             if (prisoner.GetTraitLevel(DefaultTraits.Mercy) > 0)
             {
@@ -28,7 +28,7 @@ namespace Aragas.CampaignSystem.Actions
                     facilitatior,
                     prisoner,
                     2 * multiplier,
-                    MercenaryContractOptions.EnemyCap,
+                    MercenarySettings.Instance.EnemyCap,
                     true);
             }
             else
@@ -37,7 +37,7 @@ namespace Aragas.CampaignSystem.Actions
                     facilitatior,
                     prisoner,
                     1 * multiplier,
-                    MercenaryContractOptions.EnemyCap,
+                    MercenarySettings.Instance.EnemyCap,
                     true);
             }
         }

@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-using System;
+﻿using System;
 using System.Diagnostics;
 
 using TaleWorlds.Engine;
@@ -11,8 +9,6 @@ namespace CommunityPatch
     // https://github.com/Tyler-IN/MnB2-Bannerlord-CommunityPatch/blob/master/src/CommunityPatch/CommunityPatchSubModule.Logging.cs
     public partial class CommunityPatchSubModule
     {
-
-        [PublicAPI]
         [Conditional("TRACE")]
         public static void Error(Exception ex, string msg = null)
         {
@@ -29,17 +25,14 @@ namespace CommunityPatch
             Debugger.Log(3, "CommunityPatch", ex.StackTrace + '\n');
         }
 
-        [PublicAPI]
         [Conditional("TRACE")]
         public static void Error(Exception ex, FormattableString msg)
             => Error(ex, FormattableString.Invariant(msg));
 
-        [PublicAPI]
         [Conditional("TRACE")]
         public static void Error(FormattableString msg)
             => Error(FormattableString.Invariant(msg));
 
-        [PublicAPI]
         [Conditional("TRACE")]
         public static void Error(string msg = null)
         {
@@ -49,12 +42,10 @@ namespace CommunityPatch
             Debugger.Log(3, "CommunityPatch", msg);
         }
 
-        [PublicAPI]
         [Conditional("DEBUG")]
         public static void Print(FormattableString msg)
             => Print(FormattableString.Invariant(msg));
 
-        [PublicAPI]
         [Conditional("DEBUG")]
         public static void Print(string msg)
             => Debugger.Log(0, "CommunityPatch", msg + '\n');

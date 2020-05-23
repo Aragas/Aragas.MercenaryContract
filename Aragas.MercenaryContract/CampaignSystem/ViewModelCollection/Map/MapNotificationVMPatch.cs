@@ -16,8 +16,7 @@ namespace Aragas.CampaignSystem.ViewModelCollection.Map
     [HarmonyPatch("DetermineNotificationType")]
     internal class MapNotificationVMPatch
 	{
-        private static MethodInfo RemoveNotificationItemMethod { get; } =
-            typeof(MapNotificationVM).GetMethod("RemoveNotificationItem", BindingFlags.Instance | BindingFlags.NonPublic);
+        private static MethodInfo RemoveNotificationItemMethod { get; } = AccessTools.Method(typeof(MapNotificationVM), "RemoveNotificationItem");
 
         public static void Postfix(MapNotificationVM __instance, ref MapNotificationItemBaseVM __result, InformationData data)
 		{

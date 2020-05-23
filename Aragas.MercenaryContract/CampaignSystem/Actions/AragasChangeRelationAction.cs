@@ -7,7 +7,7 @@ namespace Aragas.CampaignSystem.Actions
     {
         private static void ApplyInternal(Hero hero, Hero toHero, int relation, int cap, bool showQuickNotification = true)
         {
-            if(!MercenaryContractOptions.ApplyRelationshipRulesToNPC && hero != Hero.MainHero)
+            if(!MercenarySettings.Instance.ApplyRelationshipRulesToNPC && hero != Hero.MainHero)
                 return;
 
             //var contractorKingdomHeroRelation = hero.GetRelation(toHero);

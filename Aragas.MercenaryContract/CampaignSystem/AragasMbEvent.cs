@@ -63,22 +63,20 @@ namespace Aragas.CampaignSystem
 			}
 		}
 
-		private EventHandlerRec _nonSerializedListenerList;
+		private EventHandlerRec _nonSerializedListenerList = default!;
 
 		internal class EventHandlerRec
 		{
-            internal Action Action { get; private set; }
+            public EventHandlerRec Next { get; set; } = default!;
+			internal object Owner { get; }
+			internal Action Action { get; }
 
-			internal object Owner { get; private set; }
-
-			public EventHandlerRec(object owner, Action action)
+            public EventHandlerRec(object owner, Action action)
 			{
 				Action = action;
 				Owner = owner;
 			}
-
-			public EventHandlerRec Next;
-		}
+        }
 	}
 
 	internal class AragasMbEvent<T> : IMbEvent<T>
@@ -140,22 +138,20 @@ namespace Aragas.CampaignSystem
 			}
 		}
 
-		private EventHandlerRec<T> _nonSerializedListenerList;
+		private EventHandlerRec<T> _nonSerializedListenerList = default!;
 
 		internal class EventHandlerRec<TS>
 		{
-            internal Action<TS> Action { get; private set; }
+            public EventHandlerRec<TS> Next { get; set; } = default!;
+			internal object Owner { get; }
+			internal Action<TS> Action { get; }
 
-			internal object Owner { get; private set; }
-
-			public EventHandlerRec(object owner, Action<TS> action)
+            public EventHandlerRec(object owner, Action<TS> action)
 			{
 				Action = action;
 				Owner = owner;
 			}
-
-			public EventHandlerRec<TS> Next;
-		}
+        }
 	}
 
     internal class AragasMbEvent<T1, T2> : IMbEvent<T1, T2>
@@ -217,22 +213,20 @@ namespace Aragas.CampaignSystem
 			}
 		}
 
-		private EventHandlerRec<T1, T2> _nonSerializedListenerList;
+        private EventHandlerRec<T1, T2> _nonSerializedListenerList = default!;
 
 		internal class EventHandlerRec<TS, TQ>
 		{
-            internal Action<TS, TQ> Action { get; private set; }
+            public EventHandlerRec<TS, TQ> Next { get; set; } = default!;
+			internal object Owner { get; }
+			internal Action<TS, TQ> Action { get; }
 
-			internal object Owner { get; private set; }
-
-			public EventHandlerRec(object owner, Action<TS, TQ> action)
+            public EventHandlerRec(object owner, Action<TS, TQ> action)
 			{
 				Action = action;
 				Owner = owner;
 			}
-
-			public EventHandlerRec<TS, TQ> Next;
-		}
+        }
 	}
 
     internal class AragasMbEvent<T1, T2, T3> : IMbEvent<T1, T2, T3>
@@ -294,21 +288,19 @@ namespace Aragas.CampaignSystem
 			}
 		}
 
-		private EventHandlerRec<T1, T2, T3> _nonSerializedListenerList;
+        private EventHandlerRec<T1, T2, T3> _nonSerializedListenerList = default!;
 
 		internal class EventHandlerRec<TS, TQ, TR>
 		{
-            internal Action<TS, TQ, TR> Action { get; private set; }
+            public EventHandlerRec<TS, TQ, TR> Next { get; set; } = default!;
+			internal object Owner { get; }
+			internal Action<TS, TQ, TR> Action { get; }
 
-			internal object Owner { get; private set; }
-
-			public EventHandlerRec(object owner, Action<TS, TQ, TR> action)
+            public EventHandlerRec(object owner, Action<TS, TQ, TR> action)
 			{
 				Action = action;
 				Owner = owner;
 			}
-
-			public EventHandlerRec<TS, TQ, TR> Next;
-		}
+        }
 	}
 }

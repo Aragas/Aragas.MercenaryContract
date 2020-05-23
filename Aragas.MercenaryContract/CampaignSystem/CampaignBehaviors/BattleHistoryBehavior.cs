@@ -27,7 +27,7 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
         {
             if (clan.IsUnderMercenaryService && !IsContributingToWar(clan))
             {
-                var penalty = MercenaryContractOptions.InfluencePenalty;
+                var penalty = MercenarySettings.Instance.InfluencePenalty;
 
                 influence.Value += penalty;
                 // Null check is critical, explanation can be null sometimes.
@@ -46,7 +46,7 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
             var toRemove = new List<BattleHistoryEntry>();
             foreach (var battleHistoryEntry in _currentMonthBattleHistories)
             {
-                if (battleHistoryEntry.Time.ElapsedDaysUntilNow >= MercenaryContractOptions.ContractLengthInDays)
+                if (battleHistoryEntry.Time.ElapsedDaysUntilNow >= MercenarySettings.Instance.ContractLengthInDays)
                     toRemove.Add(battleHistoryEntry);
             }
             foreach (var entry in toRemove)
@@ -56,7 +56,7 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
 
         private bool IsContributingToWar(Clan mercenaryClan)
         {
-            if (!MercenaryContractOptions.ApplyRelationshipRulesToNPC && mercenaryClan == Clan.PlayerClan)
+            if (!MercenarySettings.Instance.ApplyRelationshipRulesToNPC && mercenaryClan == Clan.PlayerClan)
                 return true;
 
             var isAtWar = FactionManager.GetEnemyFactions(mercenaryClan.Kingdom).Any();
@@ -65,7 +65,7 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
                 var mercenary = mercenaryClan.Leader;
                 var mercenaryFaction = mercenary.MapFaction;
 
-                if (mercenaryClan.LastFactionChangeTime.ElapsedDaysUntilNow >= MercenaryContractOptions.DaysBeforeInfluencePenalty)
+                if (mercenaryClan.LastFactionChangeTime.ElapsedDaysUntilNow >= MercenarySettings.Instance.DaysBeforeInfluencePenalty)
                 {
                     var days = MercenaryManager.DaysAfterContractStartedOrRenewed(mercenaryClan);
                     return _currentMonthBattleHistories
@@ -78,7 +78,7 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
                             var flag1 = mercenary == b.Attacker.LeaderHero && mercenaryFaction.IsAtWarWith(b.Defender.LeaderHero.MapFaction);
                             var flag2 = mercenary == b.Defender.LeaderHero && mercenaryFaction.IsAtWarWith(b.Attacker.LeaderHero.MapFaction);
                             return flag1 || flag2;
-                        }) >= MercenaryContractOptions.MinimumBattleCount;
+                        }) >= MercenarySettings.Instance.MinimumBattleCount;
                 }
                 else
                     return true;

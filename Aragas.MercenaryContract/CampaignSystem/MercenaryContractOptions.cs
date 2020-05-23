@@ -1,4 +1,5 @@
-﻿using Aragas.MountAndBlade;
+﻿/*
+using Aragas.MountAndBlade;
 
 using TaleWorlds.SaveSystem;
 
@@ -239,3 +240,4 @@ namespace Aragas.CampaignSystem
         }
     }
 }
+*/

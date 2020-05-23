@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 
 using Aragas.CampaignSystem.LogEntries;
-
+using Aragas.CampaignSystem.MapNotificationTypes;
 using TaleWorlds.CampaignSystem;
 
 namespace Aragas.CampaignSystem.CampaignBehaviors
@@ -18,12 +18,14 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
 		{
             foreach (var clan in Clan.All.Where(c => c.IsUnderMercenaryService))
             {
-                if (!MercenaryContractOptions.ApplyRelationshipRulesToNPC && clan != Clan.PlayerClan)
+                if (!MercenarySettings.Instance.ApplyRelationshipRulesToNPC && clan != Clan.PlayerClan)
                     continue;
 
                 if (MercenaryManager.DaysBeforeContractEnds(clan) < 1f)
                 {
-                    LogEntry.AddLogEntry(new MercenaryContractExpiredLogEntry(clan.Leader));
+                    var mercenaryContractExpired = new MercenaryContractExpiredLogEntry(Clan.PlayerClan.Leader);
+                    LogEntry.AddLogEntry(mercenaryContractExpired);
+                    Campaign.Current.CampaignInformationManager.NewMapNoticeAdded(new MercenaryContractMapNotification(Clan.PlayerClan.Leader, mercenaryContractExpired.GetEncyclopediaText()));
                 }
             }
         }
