@@ -3,7 +3,7 @@
    <img src="https://tokei.rs/b1/github/Aragas/Aragas.MercenaryContract?category=code" /></a>
    </br>
    <a href="https://www.nexusmods.com/mountandblade2bannerlord/mods/190" alt="Limited Mercenary Contract">
-   <img src="https://img.shields.io/badge/Nexus-Limited%20Mercenary%20MContract-yellow.svg" /></a>
+   <img src="https://img.shields.io/badge/Nexus-Limited%20Mercenary%20Contract-yellow.svg" /></a>
    <a href="https://www.nexusmods.com/mountandblade2bannerlord/mods/190" alt="Nexus Mod Configuration Menu">
    <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fnexusmods-version-pzk4e0ejol6j.runkit.sh%3FgameId%3Dmountandblade2bannerlord%26modId%3D190" /></a>
    <a href="https://www.nexusmods.com/mountandblade2bannerlord/mods/190" alt="Nexus Mod Configuration Menu">
