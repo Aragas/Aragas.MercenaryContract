@@ -3,6 +3,7 @@
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
+using TaleWorlds.ObjectSystem;
 using TaleWorlds.SaveSystem;
 
 namespace Aragas.CampaignSystem.LogEntries
@@ -30,12 +31,8 @@ namespace Aragas.CampaignSystem.LogEntries
 			if (_mercenary == null)
 				return TextObject.Empty;
 
-			var textObject = GameTexts.FindText("str_mercenary_contract_encyclopedia_renewed", null);
-			StringHelpers.SetCharacterProperties(
-				"HERO",
-				_mercenary,
-				null,
-				textObject);
+			var textObject = GameTexts.FindText("str_mercenary_contract_encyclopedia_renewed");
+			StringHelpers.SetCharacterProperties("HERO", _mercenary, null, textObject);
 			textObject.SetTextVariable("FACTION", _hiringFaction.EncyclopediaLinkWithName);
 			return textObject;
 		}

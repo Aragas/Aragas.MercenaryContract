@@ -1,5 +1,5 @@
 ﻿using Aragas.CampaignSystem.LogEntries;
-using Aragas.Core;
+using Aragas.CampaignSystem.MapNotificationTypes;
 
 using TaleWorlds.SaveSystem;
 

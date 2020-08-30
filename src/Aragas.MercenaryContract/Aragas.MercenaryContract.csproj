@@ -1,0 +1,25 @@
+﻿<!--EXTERNAL_PROPERTIES: HarmonyVersion;GameVersion-->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Aragas</RootNamespace>
+  </PropertyGroup>
+
+  <!--Module Creation-->
+  <PropertyGroup>
+    <ModuleName>Aragas.MercenaryContract</ModuleName>
+  </PropertyGroup>
+  <!--Module Creation-->
+
+  <!--NuGet References-->
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="$(HarmonyVersion)" IncludeAssets="compile" />
+    <PackageReference Include="Bannerlord.ReferenceAssemblies.Core.EarlyAccess" Version="$(GameVersion).*" PrivateAssets="All" />
+    <PackageReference Include="Bannerlord.ReferenceAssemblies.StoryMode.EarlyAccess" Version="$(GameVersion).*" PrivateAssets="All" />
+  </ItemGroup>
+  <!--NuGet References-->
+
+</Project>

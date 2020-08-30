@@ -1,11 +1,14 @@
-﻿<Module>
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Module>
   <Name value="Limited Mercenary Contract" />
   <Id value="Aragas.MercenaryContract" />
-  <Version value="v1.0.10" />
+  <Version value="v$version$" />
+  <Official value="false" />
+  <DefaultModule value="false" />
   <SingleplayerModule value="true" />
   <MultiplayerModule value="false" />
-  <Official value="false" />
   <DependedModules>
+    <DependedModule Id="Bannerlord.Harmony" />
     <DependedModule Id="Native" />
     <DependedModule Id="SandBoxCore" />
     <DependedModule Id="Sandbox" />
@@ -17,10 +20,7 @@
       <Name value="Aragas.MercenaryContract" />
       <DLLName value="Aragas.MercenaryContract.dll" />
       <SubModuleClassType value="Aragas.MountAndBlade.MercenaryContractSubModule" />
-      <Tags>
-        <Tag key="DedicatedServerType" value="none" />
-        <Tag key="IsNoRenderModeElement" value="false" />
-      </Tags>
+      <Tags />
     </SubModule>
   </SubModules>
 </Module>

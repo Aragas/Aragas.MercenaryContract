@@ -1,4 +1,4 @@
-﻿using Aragas.CampaignSystem;
+﻿using Aragas.CampaignSystem.Sandbox.CampaignBehaviors;
 
 using HarmonyLib;
 
@@ -12,7 +12,7 @@ using TaleWorlds.MountAndBlade;
 
 namespace Aragas.MountAndBlade
 {
-	public class MercenaryContractSubModule : MBSubModuleBase
+    public class MercenaryContractSubModule : MBSubModuleBase
 	{
 		public MercenaryContractSubModule()
 		{
@@ -53,8 +53,7 @@ namespace Aragas.MountAndBlade
 					if (Clan.PlayerClan.IsUnderMercenaryService && Clan.PlayerClan.Kingdom == null)
 					{
 						Clan.PlayerClan.IsUnderMercenaryService = false;
-						campaign.UpdateDecisions();
-					}
+                    }
 				}
 			}
 		}

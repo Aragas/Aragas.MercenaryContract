@@ -10,7 +10,7 @@ namespace Aragas
 {
 	public static class SpriteCategoryExtensions
 	{
-		private static PropertyInfo IsLoadedProperty { get; } = typeof(SpriteCategory).GetProperty("IsLoaded", BindingFlags.Instance | BindingFlags.Public);
+		private static PropertyInfo? IsLoadedProperty { get; } = typeof(SpriteCategory).GetProperty("IsLoaded", BindingFlags.Instance | BindingFlags.Public);
 		public static void LoadFromModules(this SpriteCategory spriteCategory, ResourceDepot resourceDepot)
 		{
 			if (!spriteCategory.IsLoaded)

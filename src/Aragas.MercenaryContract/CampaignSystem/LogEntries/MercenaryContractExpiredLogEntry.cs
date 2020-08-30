@@ -1,10 +1,9 @@
-﻿using Aragas.Core;
-
-using Helpers;
+﻿using Helpers;
 
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
+using TaleWorlds.ObjectSystem;
 using TaleWorlds.SaveSystem;
 
 namespace Aragas.CampaignSystem.LogEntries
@@ -23,17 +22,7 @@ namespace Aragas.CampaignSystem.LogEntries
 		{
 			_mercenary = mercenary.CharacterObject;
 			_hiringFaction = mercenary.MapFaction;
-
-			if (mercenary.MapFaction == MobileParty.MainParty.MapFaction)
-			{
-				InteractiveNotificationData = new MercenaryContractMapNotification(
-					mercenary,
-					GameTexts.FindText("str_mercenary_contract_expired", null),
-					GetEncyclopediaText(),
-					false,
-					this);
-			}
-		}
+        }
 
 		public bool IsVisibleInEncyclopediaPageOf<T>(T obj) where T : MBObjectBase => obj == _mercenary.HeroObject;
 
@@ -46,12 +35,8 @@ namespace Aragas.CampaignSystem.LogEntries
 			if (_hiringFaction == null)
 				_hiringFaction = _mercenary.HeroObject.MapFaction;
 
-			var textObject = GameTexts.FindText("str_mercenary_contract_encyclopedia", null);
-			StringHelpers.SetCharacterProperties(
-				"HERO",
-				_mercenary,
-				null,
-				textObject);
+			var textObject = GameTexts.FindText("str_mercenary_contract_encyclopedia");
+			StringHelpers.SetCharacterProperties("HERO", _mercenary, null, textObject);
 			textObject.SetTextVariable("FACTION", _hiringFaction.EncyclopediaLinkWithName);
 			return textObject;
 		}
