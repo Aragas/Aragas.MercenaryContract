@@ -52,8 +52,8 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
                         break;
 
                     var multiplier = hero.Clan.IsUnderMercenaryService
-                        ? MercenarySettings.Instance.MercenaryMultiplier
-                        : MercenarySettings.Instance.VassalMultiplier;
+                        ? MercenarySettings.Instance!.MercenaryMultiplier
+                        : MercenarySettings.Instance!.VassalMultiplier;
 
                     var ratio = (mapEvent.StrengthOfSide[0] / mapEvent.StrengthOfSide[1]) - 1f;
 
@@ -111,8 +111,8 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
                                 continue;
 
                             var multiplier = joinedHero.Clan.IsUnderMercenaryService
-                                ? MercenarySettings.Instance.MercenaryMultiplier
-                                : MercenarySettings.Instance.VassalMultiplier;
+                                ? MercenarySettings.Instance!.MercenaryMultiplier
+                                : MercenarySettings.Instance!.VassalMultiplier;
 
                             var otherHeroesNotJoined = defenders
                                 .Where(p => !parties.Contains(p))

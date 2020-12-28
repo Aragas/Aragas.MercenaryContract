@@ -15,8 +15,8 @@ namespace Aragas.CampaignSystem.Actions
                 return;
 
             var multiplier = killer.Clan.IsUnderMercenaryService 
-                ? MercenarySettings.Instance.MercenaryMultiplier 
-                : MercenarySettings.Instance.VassalMultiplier;
+                ? MercenarySettings.Instance!.MercenaryMultiplier 
+                : MercenarySettings.Instance!.VassalMultiplier;
 
             var contractorKingdom = killer.Clan.Kingdom;
 

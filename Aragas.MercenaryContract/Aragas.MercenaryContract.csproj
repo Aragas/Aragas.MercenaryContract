@@ -1,35 +1,52 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!--Harmony does not provide a netstandard2.0 implementation and even if it did,
-    it would bring a lot of .dll with itself, so stick to net472 for now-->
-    <!--<TargetFrameworks>net472;netstandard2.0</TargetFrameworks>-->
+    <Version>2.0.1</Version>
+    <ModuleName>MercenaryContract</ModuleName>
+    <GameFolder>$(BANNERLORD_GAME_DIR)</GameFolder>
     <TargetFramework>net472</TargetFramework>
-    <LangVersion>8.0</LangVersion>
+    <Platforms>x64</Platforms>
+    <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
-    <RootNamespace>Aragas</RootNamespace>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <GameFolder>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</GameFolder>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
 
+  <!-- Did get the newer ReferenceAssemblies to work, but direct references were in place when I was done. -->
   <ItemGroup>
-    <Libraries Include="$(TargetDir)\*.*" Exclude="$(TargetDir)\*.pdb;$(TargetDir)\*.json;" />
-    <Data Include="_Data\**\*.*" />
+    <Reference Include="$(GameFolder)\bin\Win64_Shipping_Client\TaleWorlds.*.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="$(GameFolder)\Modules\Native\bin\Win64_Shipping_Client\*.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="$(GameFolder)\Modules\SandBox\bin\Win64_Shipping_Client\*.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="$(GameFolder)\Modules\SandBoxCore\bin\Win64_Shipping_Client\*.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="$(GameFolder)\Modules\StoryMode\bin\Win64_Shipping_Client\*.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bannerlord.MCM" Version="3.1.0" />
-    <PackageReference Include="Bannerlord.ReferenceAssemblies.Core.EarlyAccess" Version="1.4.1.229570-e" />
-    <PackageReference Include="Bannerlord.ReferenceAssemblies.StoryMode.EarlyAccess" Version="1.4.1.229570-e" />
-    <PackageReference Include="Lib.Harmony" Version="2.0.0.10" />
+    <PackageReference Include="Bannerlord.BuildResources" Version="1.0.0.32">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Bannerlord.MCM" Version="4.1.2" />
+    <PackageReference Include="Lib.Harmony" Version="2.0.4" IncludeAssets="compile" />
+    <PackageReference Include="Bannerlord.ButterLib" Version="1.0.19" IncludeAssets="compile" />
+    <!--
+    <PackageReference Include="Bannerlord.ReferenceAssemblies.Core.EarlyAccess" Version="1.5.5.*" />
+    <PackageReference Include="Bannerlord.ReferenceAssemblies.StoryMode.EarlyAccess" Version="1.5.5.*" />
+    -->
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if not exist &quot;$(GameFolder)\Modules\$(ProjectName)&quot; mkdir &quot;$(GameFolder)\Modules\$(ProjectName)&quot;" />
-
-    <Copy SourceFiles="@(Libraries)" DestinationFiles="@(Libraries->'$(GameFolder)\Modules\$(ProjectName)\bin\Win64_Shipping_Client\%(RecursiveDir)%(Filename)%(Extension)')" />
-    
-    <Copy SourceFiles="@(Data)" DestinationFiles="@(Data->'$(GameFolder)\Modules\$(ProjectName)\%(RecursiveDir)%(Filename)%(Extension)')" />
-  </Target>
 
 </Project>

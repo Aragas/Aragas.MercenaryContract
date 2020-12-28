@@ -21,10 +21,10 @@ namespace Aragas.MountAndBlade
     // TODO: * Introduce 'rewards' for various war actions, like joining armies and capturing towns/castles(filipegroh)
     public class MercenaryContractSubModule : MBSubModuleBase
     {
-        private static MercenaryContractSubModule _instance;
+        private static MercenaryContractSubModule _instance = default!;
 
-        private MercenaryManager _mercenaryManager;
-        private MercenaryContractCampaignEvents _campaignEvents;
+        private MercenaryManager _mercenaryManager = default!;
+        private MercenaryContractCampaignEvents _campaignEvents = default!;
 
         public static MercenaryManager MercenaryManager => _instance._mercenaryManager;
         public static MercenaryContractCampaignEvents CampaignEvents => _instance._campaignEvents;
@@ -44,14 +44,14 @@ namespace Aragas.MountAndBlade
             }
 
             var mercenarycontractSpriteData = SpriteDataFactory.CreateNewFromModule(
-				"mercenarycontractSpriteData",
-				UIResourceManager.UIResourceDepot);
-			UIResourceManager.SpriteData.AppendFrom(mercenarycontractSpriteData);
+                "mercenarycontractSpriteData",
+                UIResourceManager.UIResourceDepot);
+            UIResourceManager.SpriteData.AppendFrom(mercenarycontractSpriteData);
 
-			UIResourceManager.BrushFactory.ImportAndAppend(
-				"Map.Notification.Type.Circle.Image",
-				"MercenaryContractMapNotification",
-				"Aragas.MercenaryContract.Map.Notification.Type.Circle.Image");
+            UIResourceManager.BrushFactory.ImportAndAppend(
+                "Map.Notification.Type.Circle.Image",
+                "MercenaryContractMapNotification",
+                "Aragas.MercenaryContract.Map.Notification.Type.Circle.Image");
         }
         protected override void OnSubModuleUnloaded()
         {
@@ -60,27 +60,27 @@ namespace Aragas.MountAndBlade
         }
 
         protected override void OnGameStart(Game game, IGameStarter gameStarter)
-		{
+        {
             _mercenaryManager = new MercenaryManager();
             _campaignEvents = new MercenaryContractCampaignEvents();
 
             if (game.GameType is CampaignStoryMode campaignStoryMode && gameStarter is CampaignGameStarter campaignGameStarter)
-			{
+            {
                 campaignGameStarter.LoadGameTexts($"{BasePath.Name}Modules/Aragas.MercenaryContract/ModuleData/global_strings.xml");
                 campaignGameStarter.AddBehavior(new BattleBehavior());
-				campaignGameStarter.AddBehavior(new BattleHistoryBehavior());
-				campaignGameStarter.AddBehavior(new MercenaryContractBehavior());
+                campaignGameStarter.AddBehavior(new BattleHistoryBehavior());
+                campaignGameStarter.AddBehavior(new MercenaryContractBehavior());
 
                 if (campaignStoryMode.CampaignGameLoadingType == Campaign.GameLoadingType.SavedCampaign)
                 {
-                    // Keep this fix for a few versions
+                    // Keep this fix for a few versions (ZIJI: disabling it now in e1.5.5, as this property doesn't even have a public setter)
                     if (Clan.PlayerClan.IsUnderMercenaryService && Clan.PlayerClan.Kingdom == null)
                     {
-                        Clan.PlayerClan.IsUnderMercenaryService = false;
+                        Clan.PlayerClan.EndMercenaryService(isByLeavingKingdom: false);
                     }
-				}
+                }
             }
-		}
+        }
 
         public override void OnGameEnd(Game game)
         {

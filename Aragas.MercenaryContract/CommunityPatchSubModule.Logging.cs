@@ -10,7 +10,7 @@ namespace CommunityPatch
     public partial class CommunityPatchSubModule
     {
         [Conditional("TRACE")]
-        public static void Error(Exception ex, string msg = null)
+        public static void Error(Exception ex, string? msg = null)
         {
             if (msg != null)
                 Error(msg);
@@ -34,7 +34,7 @@ namespace CommunityPatch
             => Error(FormattableString.Invariant(msg));
 
         [Conditional("TRACE")]
-        public static void Error(string msg = null)
+        public static void Error(string? msg = null)
         {
             if (msg == null)
                 return;
