@@ -1,15 +1,14 @@
 ﻿using MCM.Abstractions.Attributes;
 using MCM.Abstractions.Attributes.v2;
-using MCM.Abstractions.Settings.Base.PerCharacter;
+using MCM.Abstractions.Settings.Base.PerSave;
 
 namespace Aragas
 {
-    public class MercenarySettings : AttributePerCharacterSettings<MercenarySettings>
+    public class MercenarySettings : AttributePerSaveSettings<MercenarySettings>
     {
         public override string Id { get; } = "Aragas.MercenaryContract_v1";
         public override string DisplayName { get; } = $"Limited Mercenary Contract {typeof(MercenarySettings).Assembly.GetName().Version.ToString(3)}";
         public override string FolderName { get; } = "Aragas.MercenaryContract";
-
 
         [SettingPropertyBool("Enabled", Order = 1)]
         [SettingPropertyGroup("General")]

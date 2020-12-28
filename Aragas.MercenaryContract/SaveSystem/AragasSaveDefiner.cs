@@ -10,25 +10,25 @@ using TaleWorlds.SaveSystem;
 
 namespace Aragas.SaveSystem
 {
-	internal class AragasSaveDefiner : SaveableTypeDefiner
-	{
-		// Nice.
-		public AragasSaveDefiner() : base(1_690_000) { }
+    internal class AragasSaveDefiner : SaveableTypeDefiner
+    {
+        // Nice.
+        public AragasSaveDefiner() : base(1_690_000) { }
 
-		protected override void DefineClassTypes()
-		{
-			AddClassDefinition(typeof(MercenaryContractMapNotification), 1);
-			AddClassDefinition(typeof(MercenaryContractExpiredLogEntry), 2);
-			AddClassDefinition(typeof(MercenaryContractRenewedLogEntry), 3);
+        protected override void DefineClassTypes()
+        {
+            AddClassDefinition(typeof(MercenaryContractMapNotification), 1);
+            AddClassDefinition(typeof(MercenaryContractExpiredLogEntry), 2);
+            AddClassDefinition(typeof(MercenaryContractRenewedLogEntry), 3);
             AddClassDefinition(typeof(MercenaryContractEndedLogEntry), 4);
             AddClassDefinition(typeof(BattleHistoryEntry), 5);
-			AddClassDefinition(typeof(MercenaryContractSubModule), 6);
+            AddClassDefinition(typeof(MercenaryContractSubModule), 6);
         }
 
         protected override void DefineContainerDefinitions()
         {
             ConstructContainerDefinition(typeof(List<BattleHistoryEntry>));
-			ConstructContainerDefinition(typeof(Dictionary<MapEvent, List<PartyBase>>));
+            ConstructContainerDefinition(typeof(Dictionary<MapEvent, List<PartyBase>>));
         }
-	}
+    }
 }

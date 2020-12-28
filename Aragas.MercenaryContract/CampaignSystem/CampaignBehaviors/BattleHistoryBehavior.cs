@@ -27,7 +27,7 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
         {
             if (clan.IsUnderMercenaryService && !IsContributingToWar(clan))
             {
-                var penalty = MercenarySettings.Instance.InfluencePenalty;
+                var penalty = MercenarySettings.Instance!.InfluencePenalty;
 
                 influence.Value += penalty;
                 // Null check is critical, explanation can be null sometimes.
@@ -46,7 +46,7 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
             var toRemove = new List<BattleHistoryEntry>();
             foreach (var battleHistoryEntry in _currentMonthBattleHistories)
             {
-                if (battleHistoryEntry.Time.ElapsedDaysUntilNow >= MercenarySettings.Instance.ContractLengthInDays)
+                if (battleHistoryEntry.Time.ElapsedDaysUntilNow >= MercenarySettings.Instance!.ContractLengthInDays)
                     toRemove.Add(battleHistoryEntry);
             }
             foreach (var entry in toRemove)
@@ -56,7 +56,7 @@ namespace Aragas.CampaignSystem.CampaignBehaviors
 
         private bool IsContributingToWar(Clan mercenaryClan)
         {
-            if (!MercenarySettings.Instance.ApplyRelationshipRulesToNPC && mercenaryClan == Clan.PlayerClan)
+            if (!MercenarySettings.Instance!.ApplyRelationshipRulesToNPC && mercenaryClan == Clan.PlayerClan)
                 return true;
 
             var isAtWar = FactionManager.GetEnemyFactions(mercenaryClan.Kingdom).Any();

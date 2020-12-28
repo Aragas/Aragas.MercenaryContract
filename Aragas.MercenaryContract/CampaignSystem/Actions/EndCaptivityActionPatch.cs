@@ -19,8 +19,8 @@ namespace Aragas.CampaignSystem.Actions
                 return;
 
             var multiplier = facilitatior.Clan.IsUnderMercenaryService
-                ? MercenarySettings.Instance.MercenaryMultiplier
-                : MercenarySettings.Instance.VassalMultiplier;
+                ? MercenarySettings.Instance!.MercenaryMultiplier
+                : MercenarySettings.Instance!.VassalMultiplier;
 
             if (prisoner.GetTraitLevel(DefaultTraits.Mercy) > 0)
             {

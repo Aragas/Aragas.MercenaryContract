@@ -2,12 +2,8 @@
   "profiles": {
     "Launcher": {
       "commandName": "Executable",
-      "executablePath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Mount & Blade II Bannerlord\\bin\\Win64_Shipping_Client\\TaleWorlds.MountAndBlade.Launcher.exe",
-      "workingDirectory": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Mount & Blade II Bannerlord\\bin\\Win64_Shipping_Client",
-      "environmentVariables": {
-        "OUTPUT_PATH": "D:\\GitHub\\Aragas.MercenaryContract\\bin\\Debug\\netstandard2.0",
-        "PATH": "%PATH%;%OUTPUT_PATH%"
-      }
+      "executablePath": "$(GameFolder)\\bin\\Win64_Shipping_Client\\TaleWorlds.MountAndBlade.Launcher.exe",
+      "workingDirectory": "$(GameFolder)\\bin\\Win64_Shipping_Client"
     }
   }
 }

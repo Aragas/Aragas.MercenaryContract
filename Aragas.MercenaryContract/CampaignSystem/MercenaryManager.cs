@@ -3,6 +3,8 @@
 using Aragas.CampaignSystem.LogEntries;
 using Aragas.MountAndBlade;
 
+using HarmonyLib;
+
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Core;
@@ -22,12 +24,12 @@ namespace Aragas.CampaignSystem
 
         public static float DaysAfterContractStartedOrRenewed(Clan mercenaryClan)
         {
-            var contractLength = MercenarySettings.Instance.ContractLengthInDays;
+            var contractLength = MercenarySettings.Instance!.ContractLengthInDays;
             var elapsedDays = mercenaryClan.LastFactionChangeTime.ElapsedDaysUntilNow;
             return elapsedDays - (MathF.Floor(elapsedDays / contractLength) * contractLength);
         }
 
-        public static float DaysBeforeContractEnds(Clan mercenaryClan) => MercenarySettings.Instance.ContractLengthInDays - DaysAfterContractStartedOrRenewed(mercenaryClan);
+        public static float DaysBeforeContractEnds(Clan mercenaryClan) => MercenarySettings.Instance!.ContractLengthInDays - DaysAfterContractStartedOrRenewed(mercenaryClan);
 
 
         public static void RenewContract(Hero mercenary)
@@ -48,18 +50,20 @@ namespace Aragas.CampaignSystem
             {
                 mercenaryClan,
                 mercenaryKingdom,
-                (Kingdom) null,
+                (Kingdom) null!,
                 true
             });
+
             mercenaryClan.ClanLeaveKingdom(false);
 
             OnMercenaryClanChangedKingdomMethod.Invoke(CampaignEventDispatcher.Instance, new object[]
             {
                 mercenaryClan,
                 mercenaryKingdom,
-                (Kingdom) null
+                (Kingdom) null!
             });
-            mercenaryClan.IsUnderMercenaryService = false;
+
+            mercenaryClan.EndMercenaryService(isByLeavingKingdom: false);
 
             if (mercenary == Hero.MainHero)
                 mercenaryClan.ClanLeaveKingdom(true);
